@@ -27,7 +27,7 @@ nnoremap <silent> <leader>1 <cmd>call termcwd#get(1, "")<cr>
 
 (The actual folder path the term starts in is the default `:terminal` window local CWD.)
 
-## Insert
+## Insert Mode
 
 For consistency between Neovim and Vim—and what's generally a nice workflow—the first time a terminal is opened it starts in insert mode (like the default of Vim), then normal mode when toggled open the next time (like the default of Vim).
 
