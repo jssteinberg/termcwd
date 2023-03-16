@@ -17,7 +17,7 @@ nnoremap <silent> <leader><cr> <cmd>call termcwd#get()<cr>
 There's also two arguments that can be passed:
 
 1. the number of the terminal to toggle (0 by default)
-2. the CWD path it should can be toggled from (window local CWD by default) - pass en empty string to be able to toggle it from any CWD.
+2. the CWD path it can be toggled from (window local CWD by default) - pass en empty string to be able to toggle it from any CWD.
 
 E.g., for a terminal numbered 1 that can be toggled globally in a (Neo)vim instance:
 
@@ -29,7 +29,7 @@ nnoremap <silent> <leader>1 <cmd>call termcwd#get(1, "")<cr>
 
 ## Insert
 
-For consistency between Neovim and Vim—and what's generally a nice workflow—the first time a terminal is opened it starts in insert mode (like the default of Vim), then normal mode when toggle opened next time (like the default of Vim).
+For consistency between Neovim and Vim—and what's generally a nice workflow—the first time a terminal is opened it starts in insert mode (like the default of Vim), then normal mode when toggled open the next time (like the default of Vim).
 
 To always open terminal and start insert:
 
