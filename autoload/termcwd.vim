@@ -1,4 +1,3 @@
-" Open main terminal for CWD
 function! termcwd#get(number = 0, cwd = getcwd(0)) abort
 	try
 		wincmd s
