@@ -4,7 +4,11 @@ Termcwd toggles (Neo)vim terminal buffers based on the window-local current work
 
 ## Install
 
-This script is lazy loaded by default. Install it with any Neovim/Vim package/plugin manager, or clone/download it to a "pack/\*/start" folder in `runtimepath` (`:h packages`).
+Install it with any Neovim/Vim package/plugin manager, or clone/download it to a "pack/\*/start" folder in `runtimepath` (`:h packages`).
+
+Termcwd is so light that lazy loading hardly matters,
+but still it's lazy loaded by default.
+Nothing special required on the installation part—as all (Neo)vim packages/plugins should aim for.
 
 ## Use
 
