@@ -6,9 +6,8 @@ Termcwd toggles (Neo)vim terminal buffers based on the window-local current work
 
 Install it with any Neovim/Vim package/plugin manager, or clone/download it to a "pack/\*/start" folder in `runtimepath` (`:h packages`).
 
-Termcwd is so light that lazy loading hardly matters,
-but still it's lazy loaded by default.
-Nothing special required on the installation part—as all (Neo)vim packages/plugins should aim for.
+Termcwd is too light for lazy loading to matters,
+but still it's lazy loaded by default—as all (Neo)vim packages/plugins should aim for.
 
 ## Use
 
@@ -21,7 +20,7 @@ nnoremap <silent> <leader><cr> <cmd>call termcwd#get()<cr>
 There's also two arguments that can be passed:
 
 1. Number—The number of the terminal to toggle (0 by default).
-2. String—The CWD path it can be toggled from (window-local CWD by default) - pass en empty string to be able to toggle it from any CWD.
+2. String—The CWD path it can be toggled from (window-local CWD by default—`getcwd(0)`) - pass en empty string to be able to toggle it from any CWD, or specify with `getcwd()` or other way.
 
 E.g., for an alternative terminal (numbered 1) that can be toggled for the window-local CWD:
 
