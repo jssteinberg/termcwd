@@ -6,9 +6,13 @@ A new terminal will be spawned for the particular reference if it hasn't already
 
 Workflow with termcwd:
 
-- quickly open your main terminal (or secondary, or other) based on the CWD;
-- take a glance at your terminal, maybe write a command and
-- hide the terminal buffer (e.g., with `<C-w>q`)—knowing you have you terminal buffer quickly available without any thought.
+1. you're coding on a project
+2. you need to run a command or glance at your terminal
+3. use termcwd to quickly open your main terminal (or secondary, or other) based on the CWD
+4. take a glance at your terminal, maybe run some commands
+5. hide the terminal buffer
+(e.g., with `<C-w>q`)
+6. repeat
 
 If you switch CWD, e.g, by opening another session, or for a tab, or in your directory viewer, you can use the same keymapping to open another main terminal for that CWD (or use your preference of choice—see below).
 
