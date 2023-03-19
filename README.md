@@ -21,7 +21,11 @@ but still it's lazy loaded by default—as all (Neo)vim packages/plugins should 
 
 ## Use
 
-Call the function `termcwd#get()` to toggle a terminal for the window-local CWD,  opened in a split window. E.g., map it like so:
+Call the function `termcwd#get()` to
+open a terminal for the
+window-local CWD in a
+split window. E.g., map it like
+so:
 
 ```vim
 nnoremap <silent> <leader><cr> <cmd>call termcwd#get()<cr>
