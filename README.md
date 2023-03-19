@@ -8,7 +8,7 @@ Workflow with termcwd:
 
 - quickly open your main terminal (or secondary, or other) based on the CWD;
 - take a glance at your terminal, maybe write a command and
-- hide the terminal buffer (e.g., by `<c-w>q` when you have `set hidden`)—knowing you have you terminal buffer quickly available without any thought.
+- hide the terminal buffer (e.g., with `<C-w>q`)—knowing you have you terminal buffer quickly available without any thought.
 
 If you switch CWD, e.g, by opening another session, or for a tab, or in your directory viewer, you can use the same keymapping to open another main terminal for that CWD (or use your preference of choice—see below).
 
