@@ -1,26 +1,16 @@
 # termcwd
 
 Termcwd is a tiny package/plugin for
-Neovim and Vim. Use it to quickly
-create/open the terminals for the current
-working
-directory (CWD)—window local, tab
-local, or globally. A new terminal
-will be spawned if it doesn't exist
-for the particular reference.
+Neovim and Vim.
 
-Workflow with termcwd:
+Basic usage is to call the function `termcwd#get()` to
+create or open the main terminal for the
+window-local CWD. E.g., map it like
+so:
 
-1. you're coding on a project
-2. you need to run a command or glance at your terminal
-3. use termcwd to quickly open your main terminal (or secondary, or other) for the active CWD in a split window
-  - if there's no active terminal for that reference it will be spawned
-  - else, it's opened
-4. take a glance at your terminal, maybe run some commands
-5. hide the terminal buffer (e.g., with `<C-w>q`)
-6. repeat
-
-If you switch CWD, e.g, by opening another session, or for a tab, or in your directory viewer, you can use the same keymapping to open another main terminal for that CWD (or use your preference of choice—see below).
+```vim
+nnoremap <silent> <leader><cr> <cmd>wincmd s<cr><cmd>call termcwd#get()<cr>
+```
 
 ## Install
 
@@ -31,16 +21,11 @@ but all (Neo)vim packages/plugins should just do this.
 
 ## Use
 
-Call the function `termcwd#get()` to
-open a terminal for the
-window-local CWD. E.g., map it like
-so:
+The function `termcwd#get()`
+create or opens the main terminal for the
+window-local CWD.
 
-```vim
-nnoremap <silent> <leader><cr> <cmd>wincmd s<cr><cmd>call termcwd#get()<cr>
-```
-
-There's also two arguments that can be passed:
+Optionally it can take two arguments:
 
 1. (number | string)—the terminal to open (`"main"` by default).
 2. (string)—directory patopen terminal is scoped to (window-local
