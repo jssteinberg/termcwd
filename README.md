@@ -38,6 +38,7 @@ There's also two arguments that can be passed:
 the terminal is scoped to (window-local
 CWD by default—`getcwd(0)`).
 Use an empty string to be able to toggle it from any CWD, or specify with `getcwd()` or other way.
+(The actual folder path the terminal starts in is (Neo)vim default window-local CWD. Which is usually what you want.)
 
 E.g., for an alternative terminal (numbered 1) that can be toggled for the window-local CWD:
 
@@ -50,8 +51,6 @@ Or for a terminal numbered 1 that can be toggled globally in a (Neo)vim instance
 ```vim
 nnoremap <silent> <leader>1 <cmd>call termcwd#get(1, "")<cr>
 ```
-
-(The actual folder path the term starts in is the default `:terminal` window-local CWD.)
 
 ## Insert Mode
 
