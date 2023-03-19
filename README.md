@@ -1,6 +1,13 @@
 # termcwd
 
-Termcwd is a tiny package/plugin for Neovim and Vim. Use it to open your terminal buffer based on the current working directory (CWD)—window local, tab local, or globally. A new terminal will be spawned if it doesn't exist for the particular reference.
+Termcwd is a tiny package/plugin for
+Neovim and Vim. Use it to quickly
+create/open the terminals for the current
+working
+directory (CWD)—window local, tab
+local, or globally. A new terminal
+will be spawned if it doesn't exist
+for the particular reference.
 
 Workflow with termcwd:
 
@@ -57,7 +64,7 @@ Or for a terminal that can be toggled globally in a (Neo)vim instance:
 nnoremap <silent> <leader>1 <cmd>wincmd s<cr><cmd>call termcwd#get(0, "")<cr>
 ```
 
-*Note: You can use `0` for both your window-local CWD main terminal and your instance global terminal.*
+*Note: You can use `0` for both your window-local CWD main terminal and your instance global terminal without them interfering.*
 
 ## Configure Insert Mode
 
