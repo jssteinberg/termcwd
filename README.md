@@ -1,7 +1,9 @@
 # termcwd
 
-Termcwd is a tiny package/plugin for
-Neovim and Vim.
+Termcwd is a tiny package/plugin
+for
+Neovim and Vim to
+quickly toggle open your (Neo)vim terminals.
 
 Basic usage is to call the function `termcwd#get()` to
 spawn the main terminal, or open if it's already spawned, for the
@@ -11,6 +13,15 @@ so:
 ```vim
 nnoremap <silent> <leader><cr> <cmd>wincmd s<cr><cmd>call termcwd#get()<cr>
 ```
+
+You can open up another session
+with another CWD and the same
+mapping will open another main
+terminal for this session. Go
+back to your previous session
+and the same mapping will now
+toggle open that session's
+terminal.
 
 ## Install
 
