@@ -33,7 +33,7 @@ nnoremap <silent> <leader><cr> <cmd>call termcwd#get()<cr>
 
 There's also two arguments that can be passed:
 
-1. Number—The number of the terminal to toggle (0 by default).
+1. Number—The number of the terminal to toggle (`0` by default).
 2. String—The CWD path it can be toggled from (window-local CWD by default—`getcwd(0)`) - pass en empty string to be able to toggle it from any CWD, or specify with `getcwd()` or other way.
 
 E.g., for an alternative terminal (numbered 1) that can be toggled for the window-local CWD:
