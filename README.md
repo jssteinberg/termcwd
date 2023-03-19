@@ -33,7 +33,7 @@ but all (Neo)vim packages/plugins should just do this.
 ## Use
 
 The function `termcwd#get()`
-create or opens the main terminal for the
+spawns or opens the main terminal for the
 window-local CWD.
 
 Optionally it can take two arguments:
