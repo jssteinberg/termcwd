@@ -1,6 +1,9 @@
 # termcwd
 
-Termcwd toggles (Neo)vim terminal buffers based on the window-local current working directory (CWD). A simple package/plugin script for Neovim and Vim.
+Termcwd is a simple package/plugin script for Neovim and Vim
+used for creating, or opening a previously created, (Neo)vim terminal buffers based on the current working directory (CWD), global, tab or local scope.
+
+Termcwd is practical for the workflow of quickly opening your main terminal (or secondary, or other) based on the CWD; take a glance, write a command and hide the buffer (e.g., by `<c-w>q` when you have `set hidden`)—knowing you have you terminal buffer quickly available without any thought. If you switch CWD, e.g, by opening another session, or for a tab, or in your directory viewer, you can you the same keymapping to open another main terminal for that CWD.
 
 ## Install
 
