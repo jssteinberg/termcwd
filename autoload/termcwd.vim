@@ -1,7 +1,9 @@
-function! termcwd#get(number = 0, cwd = getcwd(0)) abort
+function! termcwd#get(term = "main", cwd = getcwd(0)) abort
+	let l:key = string(a:term) . "_" . a:cwd
+
 	try
-		wincmd s
-		exe "buffer " . g:termcwd_bufnrs[a:cwd .. string(a:number)]
+		exe "buffer " . g:termcwd_bufnrs[l:key]
+		normal G
 		if get(g:, "termcwd_insert", v:false) | startinsert | en
 	catch
 		if has("nvim")
@@ -12,8 +14,9 @@ function! termcwd#get(number = 0, cwd = getcwd(0)) abort
 
 		" For consistency between Vim and Neovim `startinsert` is default
 		if get(g:, "termcwd_start_insert", v:true) | startinsert | en
-		" Store buffer number with cwd and term number as key
+
+		" Store buffer term with cwd and term term as key
 		if !exists("g:termcwd_bufnrs") | let g:termcwd_bufnrs = {} | en
-		let g:termcwd_bufnrs[a:cwd .. string(a:number)] = bufnr()
+		let g:termcwd_bufnrs[l:key] = bufnr()
 	endtry
 endfunction
