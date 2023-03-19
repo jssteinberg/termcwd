@@ -4,8 +4,8 @@ Termcwd is a tiny package/plugin for
 Neovim and Vim.
 
 Basic usage is to call the function `termcwd#get()` to
-create or open the main terminal for the
-window-local CWD. E.g., map it like
+spawn the main terminal, or open if it's already spawned, for the
+window-local CWD inside Neovim or Vim. E.g., map it like
 so:
 
 ```vim
