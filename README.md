@@ -6,7 +6,7 @@ Neovim and Vim to
 quickly toggle open your (Neo)vim terminals.
 
 Basic usage is to call the function `termcwd#get()` to
-spawn the main terminal, or open if it's already spawned, for the
+spawn the main terminal, or open it if it's already spawned, for the
 window-local CWD inside Neovim or Vim. E.g., map it like
 so:
 
