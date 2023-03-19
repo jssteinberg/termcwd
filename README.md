@@ -38,7 +38,11 @@ There's also two arguments that can be passed:
 the terminal is scoped to (window-local
 CWD by default—`getcwd(0)`).
 Use an empty string to be able to toggle it from any CWD, or specify with `getcwd()` or other way.
-(The actual folder path the terminal starts in is (Neo)vim default window-local CWD. Which is usually what you want.)
+
+*The actual folder path the
+terminal starts in is (Neo)vim
+default window-local CWD. Which
+is usually what you want.*
 
 E.g., for an alternative terminal (numbered 1) that can be toggled for the window-local CWD:
 
