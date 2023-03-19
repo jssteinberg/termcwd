@@ -28,16 +28,18 @@ window-local CWD.
 Optionally it can take two arguments:
 
 1. (number | string)—the terminal to open (`"main"` by default).
-2. (string)—directory patopen terminal is scoped to (window-local
+2. (string)—the CWD
+termcwd will open the terminal
+from (window-local
 CWD by default—`getcwd(0)`).
-Use an empty string to be able to toggle it from any CWD, or specify with `getcwd()` or other way.
+Use an empty string to be able to open it from any CWD, or configure with `getcwd()`.
 
 *The actual folder path the
 terminal starts in is (Neo)vim
 default window-local CWD. Which
 is usually what you want.*
 
-E.g., for an alternative terminal (numbered 1) that can be toggled for the window-local CWD:
+E.g., for an alternative terminal (numbered 1) that can be opened for the window-local CWD:
 
 ```vim
 nnoremap <silent> <leader>1 <cmd>wincmd s<cr><cmd>call termcwd#get(1)<cr>
