@@ -2,7 +2,7 @@
 
 Termcwd is a tiny package/plugin for Neovim and Vim.
 Use it to open your terminal buffer based on the current working directory (CWD)—window local, tab local, or globally.
-A new terminal will be spawned for the particular reference if it hasn't already.
+A new terminal will be spawned if it doesn't exist for the particular reference.
 
 Workflow with termcwd:
 
