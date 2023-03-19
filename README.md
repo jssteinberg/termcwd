@@ -68,13 +68,13 @@ is opened the next time
 (like the default of both Neovim
 and Vim).
 
-To always start in insert mode:
+To always start termcwd's returned terminal in insert mode:
 
 ```vim
 let g:termcwd_insert = v:true
 ```
 
-To never start in insert mode (only for Neovim):
+To never start it in insert mode (only for Neovim):
 
 ```vim
 let g:termcwd_start_insert = v:false
