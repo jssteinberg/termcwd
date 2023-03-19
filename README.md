@@ -9,7 +9,7 @@ Termcwd is practical for the workflow of quickly opening your main terminal (or 
 
 Install it with any Neovim/Vim package/plugin manager, or clone/download it to a "pack/\*/start" folder in `runtimepath` (`:h packages`).
 
-Termcwd is too light for lazy loading to matters,
+Termcwd is too light for lazy loading to matter,
 but still it's lazy loaded by default—as all (Neo)vim packages/plugins should aim for.
 
 ## Use
