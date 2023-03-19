@@ -56,7 +56,7 @@ Or for a terminal numbered 1 that can be toggled globally in a (Neo)vim instance
 nnoremap <silent> <leader>1 <cmd>call termcwd#get(1, "")<cr>
 ```
 
-## Insert Mode
+## Configure Insert Mode
 
 For consistency between Neovim and
 Vim—and what's generally a nice
