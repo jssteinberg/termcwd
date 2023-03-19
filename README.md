@@ -8,7 +8,9 @@ Workflow with termcwd:
 
 1. you're coding on a project
 2. you need to run a command or glance at your terminal
-3. use termcwd to quickly open your main terminal (or secondary, or other) based on the CWD
+3. use termcwd to quickly open your main terminal (or secondary, or other) based on the CWD in a split window
+  - if there's no active terminal for that reference it will be spawned
+  - else, it's opened
 4. take a glance at your terminal, maybe run some commands
 5. hide the terminal buffer
 (e.g., with `<C-w>q`)
