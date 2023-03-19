@@ -48,7 +48,15 @@ nnoremap <silent> <leader>1 <cmd>call termcwd#get(1, "")<cr>
 
 ## Insert Mode
 
-For consistency between Neovim and Vim—and what's generally a nice workflow—the first time a terminal is opened it starts in insert mode (like the default of Vim), then normal mode when toggled open the next time (like the default of Vim).
+For consistency between Neovim and
+Vim—and what's generally a nice
+workflow—when a new terminal is
+spawned insert mode is
+started (like the default of Vim),
+then normal mode when that terminal
+is opened the next time
+(like the default of both Neovim
+and Vim).
 
 To always open terminal and start insert:
 
