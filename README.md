@@ -28,7 +28,7 @@ arguments (see below).
 
 ## Install
 
-Install it with any Neovim/Vim package/plugin manager, or clone/download it to a "pack/\*/start" folder in `runtimepath` (`:h packages`).
+Install "jssteinberg/termcwd" with any Neovim/Vim package/plugin manager, or clone/download it to a "pack/\*/start" folder in `runtimepath` (`:h packages`).
 
 Termcwd is lazy loaded (defined only when used). It's too light for lazy loading to matter,
 but all (Neo)vim packages/plugins should just do this.
