@@ -11,14 +11,20 @@ window-local CWD inside Neovim or Vim. E.g., map it to spilt like so:
 nnoremap <silent> <leader><cr> <cmd>call termcwd#split_get()<cr>
 ```
 
-You can open up another session
-with another CWD and the same
+Now you can set another CWD,
+for instance by opening another session,
+and the same
 mapping will open another main
-terminal for this session. Go
-back to your previous session
+terminal for this CWD. Go
+back to your previous CWD
 and the same mapping will now
-toggle open that session's
+toggle open that CWD's main
 terminal.
+
+You can also add mappings for
+secondary terminals or for the
+global (Neo)vim instance by passing
+arguments (see below).
 
 ## Install
 
