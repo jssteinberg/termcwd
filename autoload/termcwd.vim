@@ -20,3 +20,23 @@ function! termcwd#get(term = "main", cwd = getcwd(0)) abort
 		let g:termcwd_bufnrs[l:key] = bufnr()
 	endtry
 endfunction
+
+" open in splits
+function! termcwd#split_get(...) abort
+	wincmd s | call s:GetTerm(a:000)
+endfunction
+function! termcwd#sp_get(...) abort
+	wincmd s | call s:GetTerm(a:000)
+endfunction
+function! termcwd#vsplit_get(...) abort
+	wincmd v | call s:GetTerm(a:000)
+endfunction
+function! termcwd#vsp_get(...) abort
+	wincmd v | call s:GetTerm(a:000)
+endfunction
+
+function! s:GetTerm(args) abort
+	let l:term = get(a:args, 0, "main")
+	let l:cwd = get(a:args, 1, getcwd(0))
+	call termcwd#get(l:term, l:cwd)
+endfunction
