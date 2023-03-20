@@ -5,7 +5,7 @@ quickly toggle open your (Neo)vim terminals.
 
 Basic usage is to call the function `termcwd#get()` to
 spawn the main terminal, or open it if it's already spawned, for the
-window-local CWD inside Neovim or Vim. E.g., map it like so:
+window-local CWD inside Neovim or Vim. E.g., map it to spilt like so:
 
 ```vim
 nnoremap <silent> <leader><cr> <cmd>call termcwd#split_get()<cr>
@@ -35,7 +35,7 @@ but all (Neo)vim packages/plugins should just do this.
 
 `termcwd#vsplit_get()` or `termcwd#vsp_get()` opens the terminal in a vertical split.
 
-*They all create the terminal if it is missing for the particular reference.*
+*They all create the terminal if it is doesn't exist for the particular reference.*
 
 Optionally they take two arguments:
 
