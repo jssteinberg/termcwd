@@ -3,7 +3,6 @@ function! termcwd#get(term = "main", cwd = getcwd(0)) abort
 
 	try
 		exe "buffer " . g:termcwd_bufnrs[l:key]
-		normal G
 		if get(g:, "termcwd_insert", v:false) | startinsert | en
 	catch
 		if has("nvim")
