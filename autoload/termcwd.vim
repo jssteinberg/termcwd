@@ -22,16 +22,16 @@ function! termcwd#get(term = "main", cwd = getcwd(0)) abort
 endfunction
 
 " open in splits
-function! termcwd#split_get(...) abort
+function! termcwd#splitGet(...) abort
 	wincmd s | call s:GetTerm(a:000)
 endfunction
-function! termcwd#sp_get(...) abort
+function! termcwd#spGet(...) abort
 	wincmd s | call s:GetTerm(a:000)
 endfunction
-function! termcwd#vsplit_get(...) abort
+function! termcwd#vsplitGet(...) abort
 	wincmd v | call s:GetTerm(a:000)
 endfunction
-function! termcwd#vsp_get(...) abort
+function! termcwd#vspGet(...) abort
 	wincmd v | call s:GetTerm(a:000)
 endfunction
 

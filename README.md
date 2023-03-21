@@ -8,7 +8,7 @@ spawn the main terminal, or open it if it's already spawned, for the
 window-local CWD inside Neovim or Vim. E.g., map it like so:
 
 ```vim
-nnoremap <silent> <leader><cr> <cmd>call termcwd#split_get()<cr>
+nnoremap <silent> <leader><cr> <cmd>call termcwd#splitGet()<cr>
 ```
 
 You can open up another session
@@ -31,9 +31,9 @@ but all (Neo)vim packages/plugins should just do this.
 
 `termcwd#get()` opens the main terminal for the window-local CWD.
 
-`termcwd#split_get()` or `termcwd#sp_get()` opens the terminal in a split.
+`termcwd#splitGet()` or `termcwd#spGet()` opens the terminal in a split.
 
-`termcwd#vsplit_get()` or `termcwd#vsp_get()` opens the terminal in a vertical split.
+`termcwd#vsplitGet()` or `termcwd#vspGet()` opens the terminal in a vertical split.
 
 *They all create the terminal if it is missing for the particular reference.*
 
@@ -65,7 +65,7 @@ let g:termcwd_start_insert = v:false
 E.g., for an alternative terminal (numbered 1) that can be opened for the window-local CWD:
 
 ```vim
-nnoremap <silent> <leader>1 <cmd>call termcwd#sp_get(1)<cr>
+nnoremap <silent> <leader>1 <cmd>call termcwd#spGet(1)<cr>
 ```
 
 Or for a terminal that can be toggled globally in a (Neo)vim instance:
