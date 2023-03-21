@@ -5,24 +5,30 @@ quickly toggle open your (Neo)vim terminals.
 
 Basic usage is to call the function `termcwd#get()` to
 spawn the main terminal, or open it if it's already spawned, for the
-window-local CWD inside Neovim or Vim. E.g., map it like so:
+window-local CWD inside Neovim or Vim. E.g., map it to spilt like so:
 
 ```vim
 nnoremap <silent> <leader><cr> <cmd>call termcwd#splitGet()<cr>
 ```
 
-You can open up another session
-with another CWD and the same
+Now you can set another CWD,
+for instance by opening another session,
+and the same
 mapping will open another main
-terminal for this session. Go
-back to your previous session
+terminal for this CWD. Go
+back to your previous CWD
 and the same mapping will now
-toggle open that session's
+toggle open that CWD's main
 terminal.
+
+You can also add mappings for
+secondary terminals or for the
+global (Neo)vim instance by passing
+arguments (see below).
 
 ## Install
 
-Install it with any Neovim/Vim package/plugin manager, or clone/download it to a "pack/\*/start" folder in `runtimepath` (`:h packages`).
+Install "jssteinberg/termcwd" with any Neovim/Vim package/plugin manager, or clone/download it to a "pack/\*/start" folder in `runtimepath` (`:h packages`).
 
 Termcwd is lazy loaded (defined only when used). It's too light for lazy loading to matter,
 but all (Neo)vim packages/plugins should just do this.
@@ -35,7 +41,7 @@ but all (Neo)vim packages/plugins should just do this.
 
 `termcwd#vsplitGet()` or `termcwd#vspGet()` opens the terminal in a vertical split.
 
-*They all create the terminal if it is missing for the particular reference.*
+*They all create the terminal if it is doesn't exist for the particular reference.*
 
 Optionally they take two arguments:
 
