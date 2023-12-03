@@ -18,7 +18,7 @@ instance by passing arguments (see below).
 For an alternative terminal (numbered 1) that can be opened for the window-local CWD:
 
 ```vim
-nnoremap <silent> <leader>1 <cmd>call termcwd#spGet(1)<cr>
+nnoremap <silent> <leader>1 <cmd>call termcwd#splitGet(1)<cr>
 ```
 
 Or for a terminal that can be toggled globally in a (Neo)vim instance:
