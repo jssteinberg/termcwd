@@ -34,6 +34,7 @@ function! termcwd#vspGet(...) abort
 	wincmd v | call s:GetTerm(a:000)
 endfunction
 
+" script private function to get args
 function! s:GetTerm(args) abort
 	let l:term = get(a:args, 0, "main")
 	let l:cwd = get(a:args, 1, getcwd(0))
