@@ -2,11 +2,13 @@
 
 Termcwd is a tiny package/plugin for Neovim and Vim to quickly toggle open your (Neo)vim terminals.
 
+Install Termcwd and define your preferred mappings.
+
 ```vim
 nnoremap <silent> <leader><cr> <cmd>call termcwd#splitGet()<cr>
 ```
 
-This mapping spawns/opens your main terminal for the window-local current working directory (CWD).
+Now your leader key + Enter spawns/opens your main terminal for the window-local current working directory (CWD).
 
 When you open another CWD within (Neo)vim – for instance when opening another session – the same mapping will now spawn/open the main terminal for **that** CWD. Then you return to your previous CWD and the same mapping will now toggle open that CWD's main terminal.
 
