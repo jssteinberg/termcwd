@@ -10,7 +10,7 @@ This mapping spawns/opens your main terminal for the window-local current workin
 
 When you open another CWD within (Neo)vim – for instance when opening another session – the same mapping will now spawn/open the main terminal for **that** CWD. Then you return to your previous CWD and the same mapping will now toggle open that CWD's main terminal.
 
-You can also add mappings for any secondary terminals and make it global for the (Neo)vim instance by passing these arguments (the first argument is the terminal name, second is the CWD which defaults to window-local CWD. Here it's empty for a 'global' terminal):
+You can also add mappings for any secondary terminals and make it global for the (Neo)vim instance by passing these arguments (the first argument is the terminal name, second is the CWD which defaults to window-local CWD. Here it's empty for a global terminal):
 
 ```vim
 nnoremap <silent> <leader>1 <cmd>call termcwd#splitGet('global', '')<cr>
