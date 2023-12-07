@@ -4,8 +4,11 @@ Termcwd is a tiny package/plugin for Neovim and Vim to quickly toggle open your 
 
 Install Termcwd and define your preferred mappings.
 
-```vim
+```
+" vimscript
 nnoremap <silent> <leader><cr> <cmd>call termcwd#splitGet()<cr>
+-- with lua you can call the function like this and use in a keymapping
+vim.fn["termcwd#splitGet"]()
 ```
 
 Now your leader key + Enter spawns/opens your main terminal for the window-local current working directory (CWD).
