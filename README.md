@@ -55,6 +55,13 @@ To never start it in insert mode (only for Neovim):
 let g:termcwd_start_insert = v:false
 ```
 
+*In lua:*
+
+```lua
+vim.g.termcwd_insert = true
+vim.g.termcwd_start_insert = false
+```
+
 ## Install
 
 Install "jssteinberg/termcwd" with any Neovim/Vim package/plugin manager, or clone/download it to a "pack/\*/start" folder in `runtimepath` (`:h packages`).
