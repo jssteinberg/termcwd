@@ -55,7 +55,7 @@ To never start it in insert mode (only for Neovim):
 let g:termcwd_start_insert = v:false
 ```
 
-To turn of closing of windows with same terminal and toggling of terminal window:
+To turn off closing of windows with same terminal and toggling of terminal window:
 
 ```vim
 let g:termcwd_minimalistic = v:true
