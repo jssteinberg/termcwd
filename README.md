@@ -64,7 +64,7 @@ vim.g.termcwd_start_insert = false
 
 ## Install
 
-Install "jssteinberg/termcwd" with any Neovim/Vim package/plugin manager, or clone/download it to a "pack/\*/start" folder in `runtimepath` (`:h packages`).
+Install "jssteinberg/termcwd" with any (Neo)vim package/plugin manager, or clone/download it to a "pack/\*/start" `runtimepath` folder (`:h packages`).
 
-Termcwd is lazy loaded (defined only when used). It's too light for lazy loading to matter,
-but all (Neo)vim packages/plugins should just do this.
+Termcwd is already lazy loaded (defined only when used) so you don't have to do any config for lazy loading. By simply using (Neo)vim's "autoload" directory (`:h autoload-functions`) there's no additional startuptime for your (n)vim instance. Ironically it's too light for lazy loading to matter,
+but all (Neo)vim packages/plugins should just do it when possible.
