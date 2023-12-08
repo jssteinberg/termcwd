@@ -56,7 +56,7 @@ function! s:GetTerm(args) abort
 	endtry
 
 	if l:existed && !get(g:, "termcwd_minimalistic", v:false)
-		call termcwd#smart#window(s:prev_bufnr, s:split)
+		call termcwd#exists#doSmartHide(s:prev_bufnr, s:split)
 	endif
 
 	" reset prev_bufnr

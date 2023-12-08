@@ -1,15 +1,15 @@
-function! termcwd#smart#window(prev_bufnr, split = 1) abort
-		" hide other equal terms
-		let l:others_len = s:HideOtherWinbufnrs()
+function! termcwd#exists#doSmartHide(prev_bufnr, split = 1) abort
+	" hide other equal terms
+	let l:others_len = s:HideOtherWinbufnrs()
 
-		" if prev_bufnr is equal hide current focused window or open alt
-		if l:others_len < (1 + a:split) && a:prev_bufnr == bufnr()
-			try
-				hide
-			catch
-				try | exe "b#" | catch | echo "No alternate file" | endt
-			endtry
-		endif
+	" if prev_bufnr is equal hide current focused window or open alt
+	if l:others_len < (1 + a:split) && a:prev_bufnr == bufnr()
+		try
+			hide
+		catch
+			try | exe "b#" | catch | echo "No alternate file" | endt
+		endtry
+	endif
 endfunction
 
 function s:HideOtherWinbufnrs() abort
