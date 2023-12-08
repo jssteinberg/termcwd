@@ -37,8 +37,6 @@ function! s:GetTerm(args) abort
 		" try if terminal exists
 		exe "buffer " . g:termcwd_bufnrs[l:key]
 		let l:existed = v:true
-		" start insert if configured
-		if get(g:, "termcwd_insert", v:false) | startinsert | en
 	catch
 		" or create terminal
 		if has("nvim")
@@ -57,6 +55,11 @@ function! s:GetTerm(args) abort
 
 	if l:existed && !get(g:, "termcwd_minimalistic", v:false)
 		call termcwd#exists#doSmartHide(s:prev_bufnr, s:split)
+	elseif l:existed
+		" start insert if configured
+		if get(g:, "termcwd_insert", v:false)
+			startinsert
+		en
 	endif
 
 	" reset prev_bufnr
