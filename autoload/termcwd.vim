@@ -21,7 +21,8 @@ endfunction
 " open terminal in tab
 function! termcwd#tabGet(...) abort
 	let s:set = #{ prev: bufnr(), split: 0, tab: tabpagenr() }
-	tabnew | call s:GetTerm(a:000)
+	try | tabedit % | catch | endtry
+	call s:GetTerm(a:000)
 endfunction
 " alias some functions
 let termcwd#spGet = function("termcwd#splitGet")
