@@ -1,11 +1,11 @@
 function! termcwd#exists#doSmartHide(get) abort
 	" hide other equal terms
-	let l:others_len = s:HideOtherWinbufnrs()
+	let l:others_len = a:get.tab ? 0 : s:HideOtherWinbufnrs()
 
 	if a:get.tab
 		" if get.tab has one window of same term, close both
 		if winlayout(a:get.tab)[0] == "leaf" && a:get.prev == bufnr()
-			exe a:get.tab . "tabclose"
+			hide
 			try | hide
 			catch | endt
 		endif
