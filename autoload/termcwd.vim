@@ -1,5 +1,3 @@
-" termcwd.vim
-" Open terminal in current working directory
 " Author: jssteinberg
 " License: MIT
 " Version: 0.1.0
