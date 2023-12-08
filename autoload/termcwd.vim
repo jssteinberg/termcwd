@@ -1,29 +1,31 @@
+" termcwd.vim
+" Open terminal in current working directory
+" Author: jssteinberg
+" License: MIT
+" Version: 0.1.0
+" Repository: //github.com/jssteinberg/termcwd.vim
+
+" open terminal
 function! termcwd#get(...) abort
 	let s:prev_bufnr = bufnr()
 	let s:split = 0
 	call s:GetTerm(a:000)
 endfunction
-" open in splits
+" open terminal in split
 function! termcwd#splitGet(...) abort
 	let s:prev_bufnr = bufnr()
 	let s:split = 1
 	wincmd s | call s:GetTerm(a:000)
 endfunction
-function! termcwd#spGet(...) abort
-	let s:prev_bufnr = bufnr()
-	let s:split = 1
-	wincmd s | call s:GetTerm(a:000)
-endfunction
+" open terminal in vsplit
 function! termcwd#vsplitGet(...) abort
 	let s:prev_bufnr = bufnr()
 	let s:split = 1
 	wincmd v | call s:GetTerm(a:000)
 endfunction
-function! termcwd#vspGet(...) abort
-	let s:prev_bufnr = bufnr()
-	let s:split = 1
-	wincmd v | call s:GetTerm(a:000)
-endfunction
+" alias some functions
+let termcwd#spGet = function("termcwd#splitGet")
+let termcwd#vsGet = function("termcwd#vsplitGet")
 
 function! s:GetTerm(args) abort
 	let l:term = get(a:args, 0, "main")

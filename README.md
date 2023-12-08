@@ -41,7 +41,7 @@ Optionally they take two arguments:
 
 ### Configure Insert Mode
 
-For consistency between Neovim and Vim – and what's generally a nice workflow – when a new terminal is spawned insert mode is started (like the default of Vim), then normal mode when that terminal is opened the next time (like the default of both Neovim and Vim).
+For consistency between Neovim and Vim – and what's generally a nice workflow – when a new terminal is spawned, insert mode is started (like the default of Vim). Then, normal mode when that terminal is opened the next time (like the default of both Neovim and Vim).
 
 To always start termcwd's returned terminal in insert mode:
 

@@ -26,7 +26,7 @@ function s:HideOtherWinbufnrs() abort
 
 	" hide all windows in close_winnrs recursively since new nrs when hide
 	if len(l:close_winnrs) > 0 | exe l:close_winnrs[0] . "hide" | en
-	if len(l:close_winnrs) > 1 | let l:l = s:HideOtherWinbufnrs() | en
+	if len(l:close_winnrs) > 1 | call s:HideOtherWinbufnrs() | en
 
 	return len(l:close_winnrs)
 endfunction
