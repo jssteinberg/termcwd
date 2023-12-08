@@ -8,7 +8,7 @@ Install Termcwd and define your preferred mappings (in vimscript).
 nnoremap <silent> <leader><cr> <cmd>call termcwd#splitGet()<cr>
 ```
 
-*With lua you can call the function like this: `vim.fn["termcwd#splitGet"]()`.*
+*With Neovim lua you can call the function like this: `vim.fn["termcwd#splitGet"]()`. ([A nice blog post for more Neovim lua](//vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua)).*
 
 Now your leader key + Enter spawns/toggles your main terminal for the window-local current working directory (CWD).
 
