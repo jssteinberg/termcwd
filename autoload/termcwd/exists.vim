@@ -3,19 +3,17 @@ function! termcwd#exists#doSmartHide(get) abort
 	let l:others_len = s:HideOtherWinbufnrs()
 
 	if a:get.tab
-		" if get.tab in one window of same term, close both
-		let l:prev_tab_one_win = winlayout(a:get.tab)[0] == "leaf"
-		if l:prev_tab_one_win && a:get.prev == bufnr()
+		" if get.tab has one window of same term, close both
+		if winlayout(a:get.tab)[0] == "leaf" && a:get.prev == bufnr()
 			exe a:get.tab . "tabclose"
-			try | tabclose | catch | endt
+			try | hide
+			catch | endt
 		endif
 
 	elseif l:others_len < (1 + a:get.split) && a:get.prev == bufnr()
 		" if get.prev is equal hide current focused window or open alt
-		try
-			hide
-		catch
-			try | exe "b#" | catch | echo "No alternate file" | endt
+		try | hide
+		catch | try | exe "b#" | catch | echo "No alternate file" | endt
 		endtry
 	endif
 endfunction
