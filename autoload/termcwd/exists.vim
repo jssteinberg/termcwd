@@ -15,6 +15,8 @@ function! termcwd#exists#doSmartHide(get) abort
 		try | hide
 		catch | try | exe "b#" | catch | echo "No alternate file" | endt
 		endtry
+	elseif get(g:, "termcwd_insert", v:false)
+		startinsert
 	endif
 endfunction
 
