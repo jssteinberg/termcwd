@@ -58,5 +58,5 @@ function! s:GetTerm(args) abort
 	endif
 
 	" reset prev_bufnr
-	let s:prev_bufnr = 0
+	let s:prev_bufnr = 1
 endfunction
