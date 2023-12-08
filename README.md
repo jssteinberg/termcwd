@@ -22,13 +22,12 @@ nnoremap <silent> <leader>1 <cmd>call termcwd#splitGet('global', '')<cr>
 
 ## All functions
 
-`termcwd#get()` spawns/toggles the main terminal for the window-local CWD.
+- `termcwd#get()` spawns/toggles the main terminal for the window-local CWD.
+- `termcwd#splitGet()` or `termcwd#spGet()` spanws/toggles the terminal in a split.
+- `termcwd#vsplitGet()` or `termcwd#vspGet()` spanws/toggles the terminal in a vertical split.
+- `termcwd#tabGet()` spawns/toggles the terminal in a new tab.
 
-`termcwd#splitGet()` or `termcwd#spGet()` spanws/toggles the terminal in a split.
-
-`termcwd#vsplitGet()` or `termcwd#vspGet()` spanws/toggles the terminal in a vertical split.
-
-*They all create the terminal if it is doesn't exist for the particular reference.*
+*All functions spawns a new terminal if it is doesn't exist for the particular reference.*
 
 Optionally they take two arguments:
 
