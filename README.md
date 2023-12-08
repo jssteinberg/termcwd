@@ -10,9 +10,9 @@ nnoremap <silent> <leader><cr> <cmd>call termcwd#splitGet()<cr>
 
 *With lua you can call the function like this: `vim.fn["termcwd#splitGet"]()`.*
 
-Now your leader key + Enter spawns/opens your main terminal for the window-local current working directory (CWD).
+Now your leader key + Enter spawns/toggles your main terminal for the window-local current working directory (CWD).
 
-When you open another CWD within (Neo)vim – for instance when opening another session – the same mapping will now spawn/open the main terminal for **that** CWD. Then you return to your previous CWD and the same mapping will now toggle open that CWD's main terminal.
+When you open another CWD within (Neo)vim – for instance when opening another session – the same mapping will now spawn/toggle the main terminal for **that** CWD. Then you return to your previous CWD and the same mapping will now toggle that CWD's main terminal.
 
 You can also add mappings for any secondary terminals and make it global for the (Neo)vim instance by passing these arguments (the first argument is the terminal name, second is the CWD which defaults to window-local CWD. Here it's empty for a global terminal):
 
@@ -22,11 +22,11 @@ nnoremap <silent> <leader>1 <cmd>call termcwd#splitGet('global', '')<cr>
 
 ## All functions
 
-`termcwd#get()` opens the main terminal for the window-local CWD.
+`termcwd#get()` spawns/toggles the main terminal for the window-local CWD.
 
-`termcwd#splitGet()` or `termcwd#spGet()` opens the terminal in a split.
+`termcwd#splitGet()` or `termcwd#spGet()` spanws/toggles the terminal in a split.
 
-`termcwd#vsplitGet()` or `termcwd#vspGet()` opens the terminal in a vertical split.
+`termcwd#vsplitGet()` or `termcwd#vspGet()` spanws/toggles the terminal in a vertical split.
 
 *They all create the terminal if it is doesn't exist for the particular reference.*
 
@@ -55,12 +55,45 @@ To never start it in insert mode (only for Neovim):
 let g:termcwd_start_insert = v:false
 ```
 
-*In lua:*
+To turn of closing of windows with same terminal and toggling of terminal window:
+
+```vim
+let g:termcwd_minimalistic = v:true
+```
+
+*How to configure above options with lua:*
 
 ```lua
 vim.g.termcwd_insert = true
 vim.g.termcwd_start_insert = false
+vim.g.termcwd_minimalistic = true
 ```
+
+<details>
+<summary>Related convenient keymaps</summary>
+
+Keymap to leave insert mode in terminal – below `jk` gets you to normal mode:
+
+```vim
+" For Neovim
+tnoremap jk <c-\><c-n>
+" For Vim
+tnoremap jk <c-w>N
+```
+
+`<leader>c` hides current window or quit if last window:
+
+```vim
+nnoremap <silent> <leader>c :exe "try\n hide\n catch\n q\n endtry"<cr>
+```
+
+`<leader>C` closes tab or quits all if last tab:
+
+```vim
+nn <silent> <leader>C <cmd>exe "try\n tabclose\n catch\n qa\n endtry"<cr>
+```
+
+</details>
 
 ## Install
 
