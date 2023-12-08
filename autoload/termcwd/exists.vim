@@ -1,17 +1,17 @@
-function! termcwd#exists#doSmartHide(prev_bufnr, split = 1, prev_tabnr = 0) abort
+function! termcwd#exists#doSmartHide(get) abort
 	" hide other equal terms
 	let l:others_len = s:HideOtherWinbufnrs()
 
-	if a:prev_tabnr
-		" if prev_tabnr in one window of same term, close both
-		let l:prev_tab_one_win = winlayout(a:prev_tabnr)[0] == "leaf"
-		if l:prev_tab_one_win && a:prev_bufnr == bufnr()
-			exe a:prev_tabnr . "tabclose"
+	if a:get.tab
+		" if get.tab in one window of same term, close both
+		let l:prev_tab_one_win = winlayout(a:get.tab)[0] == "leaf"
+		if l:prev_tab_one_win && a:get.prev == bufnr()
+			exe a:get.tab . "tabclose"
 			try | tabclose | catch | endt
 		endif
 
-	elseif l:others_len < (1 + a:split) && a:prev_bufnr == bufnr()
-		" if prev_bufnr is equal hide current focused window or open alt
+	elseif l:others_len < (1 + a:get.split) && a:get.prev == bufnr()
+		" if get.prev is equal hide current focused window or open alt
 		try
 			hide
 		catch

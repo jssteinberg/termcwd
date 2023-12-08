@@ -7,31 +7,22 @@
 
 " open terminal
 function! termcwd#get(...) abort
-	let s:tab = 0
-	let s:prev_bufnr = bufnr()
-	let s:split = 0
+	let s:set = #{ prev: bufnr(), split: 0, tab: 0 }
 	call s:GetTerm(a:000)
 endfunction
 " open terminal in split
 function! termcwd#splitGet(...) abort
-	let s:tab = 0
-	let s:prev_bufnr = bufnr()
-	let s:split = 1
+	let s:set = #{ prev: bufnr(), split: 1, tab: 0 }
 	wincmd s | call s:GetTerm(a:000)
 endfunction
 " open terminal in vsplit
 function! termcwd#vsplitGet(...) abort
-	let s:tab = 0
-	let s:prev_bufnr = bufnr()
-	let s:split = 1
+	let s:set = #{ prev: bufnr(), split: 1, tab: 0 }
 	wincmd v | call s:GetTerm(a:000)
 endfunction
 " open terminal in tab
 function! termcwd#tabGet(...) abort
-	" tab nr
-	let s:tab = tabpagenr()
-	let s:prev_bufnr = bufnr()
-	let s:split = 0
+	let s:set = #{ prev: bufnr(), split: 0, tab: tabpagenr() }
 	tabnew | call s:GetTerm(a:000)
 endfunction
 " alias some functions
@@ -67,9 +58,6 @@ function! s:GetTerm(args) abort
 	endtry
 
 	if l:existed && !get(g:, "termcwd_minimalistic", v:false)
-		call termcwd#exists#doSmartHide(s:prev_bufnr, s:split, get(s:, "tab", 0))
+		call termcwd#exists#doSmartHide(s:set)
 	endif
-
-	" reset prev_bufnr
-	let s:prev_bufnr = 1
 endfunction
