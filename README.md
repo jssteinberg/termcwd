@@ -42,13 +42,13 @@ Optionally they take two arguments:
 
 For consistency between Neovim and Vim – and what's generally a nice workflow – when a new terminal is spawned, insert mode is started (like the default of Vim). Then, normal mode when that terminal is opened the next time (like the default of both Neovim and Vim).
 
-To always start termcwd's returned terminal in insert mode (only for Neovim):
+To always start termcwd's returned terminal in insert mode (only for Neovim since Vim does not support starting insert mode by command in terminal buffer):
 
 ```vim
 let g:termcwd_insert = v:true
 ```
 
-To never start it in insert mode (only for Neovim):
+To never start it in insert mode (only for Neovim since Vim's terminal is only redrawn when in terminal/insert mode):
 
 ```vim
 let g:termcwd_start_insert = v:false
@@ -57,7 +57,7 @@ let g:termcwd_start_insert = v:false
 To turn off closing of other windows with same terminal and toggling of terminal window:
 
 ```vim
-let g:termcwd_minimalistic = v:true
+let g:termcwd_minimal = v:true
 ```
 
 *How to configure above options with lua:*
@@ -65,7 +65,7 @@ let g:termcwd_minimalistic = v:true
 ```lua
 vim.g.termcwd_insert = true
 vim.g.termcwd_start_insert = false
-vim.g.termcwd_minimalistic = true
+vim.g.termcwd_minimal = true
 ```
 
 <details>
