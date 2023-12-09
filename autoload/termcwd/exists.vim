@@ -5,9 +5,8 @@ function! termcwd#exists#doSmartHide(get) abort
 	if a:get.tab
 		" if get.tab has one window of same term, close both
 		if winlayout(a:get.tab)[0] == "leaf" && a:get.prev == bufnr()
-			hide
-			try | hide
-			catch | endt
+			exe a:get.tab . "tabclose"
+			try | tabclose | catch | endt
 		endif
 
 	elseif l:others_len < (1 + a:get.split) && a:get.prev == bufnr()
