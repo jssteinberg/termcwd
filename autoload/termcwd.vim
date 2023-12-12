@@ -5,22 +5,22 @@
 
 " open terminal
 function! termcwd#get(...) abort
-	let s:set = #{ prev: bufnr(), split: 0, tab: 0 }
+	let s:set = #{ prev: bufnr(), split: 0, fromTab: 0 }
 	call s:GetTerm(a:000)
 endfunction
 " open terminal in split
 function! termcwd#splitGet(...) abort
-	let s:set = #{ prev: bufnr(), split: 1, tab: 0 }
+	let s:set = #{ prev: bufnr(), split: 1, fromTab: 0 }
 	wincmd s | call s:GetTerm(a:000)
 endfunction
 " open terminal in vsplit
 function! termcwd#vsplitGet(...) abort
-	let s:set = #{ prev: bufnr(), split: 1, tab: 0 }
+	let s:set = #{ prev: bufnr(), split: 1, fromTab: 0 }
 	wincmd v | call s:GetTerm(a:000)
 endfunction
 " open terminal in tab
 function! termcwd#tabGet(...) abort
-	let s:set = #{ prev: bufnr(), split: 0, tab: tabpagenr() }
+	let s:set = #{ prev: bufnr(), split: 0, fromTab: tabpagenr() }
 	try | tabedit % | catch | endtry
 	call s:GetTerm(a:000)
 endfunction
@@ -56,7 +56,7 @@ function! s:GetTerm(args) abort
 	endtry
 
 	if l:existed && !get(g:, "termcwd_minimal", v:false)
-		call termcwd#exists#doSmartHide(s:set)
+		call termcwd#exists#doSmartHide(g:termcwd_bufnrs[l:key], s:set)
 	elseif l:existed && has("nvim") && get(g:, "termcwd_insert", v:false)
 		startinsert
 	endif
