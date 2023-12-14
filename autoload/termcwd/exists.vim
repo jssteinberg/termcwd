@@ -1,5 +1,5 @@
 " returns true if terminal is open and focused
-function! termcwd#exists#toggle(t_bufnr, get) abort
+function! termcwd#exists#toggleWindows(t_bufnr, get) abort
 	" hide other equal terms
 	let l:others_len = a:get.fromTab ? 0 : s:HideOtherWinbufnrs()
 
