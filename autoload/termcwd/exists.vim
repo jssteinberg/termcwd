@@ -25,13 +25,12 @@ function! termcwd#exists#toggleWindows(t_bufnr, get) abort
 			" if get.prev is equal hide current focused window or open alt
 			try | hide
 			catch | try | exe "b#" | catch | echo "No alternate file" | endt
-			finally
-				return v:false
+			finally | return v:false
 			endtry
 		elseif l:toClose
-			try | exe "b#" | catch | echo "No alternate file"
-			finally
-				return v:false
+			try | exe "b#"
+			catch | echo "No alternate file"
+			finally | return v:false
 			endtry
 		endif
 	endif
