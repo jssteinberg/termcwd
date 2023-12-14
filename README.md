@@ -10,9 +10,9 @@ nnoremap <silent> <leader><cr> <cmd>call termcwd#splitGet()<cr>
 
 *With Neovim lua you can call the function like this: `vim.fn["termcwd#splitGet"]()`. ([A nice blog post for more Neovim lua](//vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua)).*
 
-Now your leader key + Enter spawns/toggles your main terminal for the window-local current working directory (CWD).
+Now your leader key + Enter spawns/focuses/toggles your main terminal for the window-local current working directory (CWD).
 
-When you open another CWD within (Neo)vim – for instance when opening another session – the same mapping will now spawn/toggle the main terminal for **that** CWD. Then you return to your previous CWD and the same mapping will now toggle that CWD's main terminal.
+When you open another CWD within (Neo)vim – for instance when opening another session – the same mapping will now spawn/focus/toggle the main terminal for **that** CWD. Then you return to your previous CWD and the same mapping will now focus/toggle that CWD's main terminal.
 
 You can also add mappings for any secondary terminals and make it global for the (Neo)vim instance by passing these arguments (the first argument is the terminal name, second is the CWD which defaults to window-local CWD. Here it's empty for a global terminal):
 
@@ -22,12 +22,10 @@ nnoremap <silent> <leader>1 <cmd>call termcwd#splitGet('global', '')<cr>
 
 ## All functions
 
-- `termcwd#get()` spawns/toggles the main terminal for the window-local CWD.
-- `termcwd#splitGet()` or `termcwd#spGet()` spanws/toggles the terminal in a split.
-- `termcwd#vsplitGet()` or `termcwd#vspGet()` spanws/toggles the terminal in a vertical split.
-- `termcwd#tabGet()` spawns/toggles the terminal in a new tab.
-
-*All functions spawns a new terminal if it is doesn't exist for the particular reference.*
+- `termcwd#get()` spawns/focuses/toggles the main terminal for the window-local CWD.
+- `termcwd#splitGet()` or `termcwd#spGet()` spanws/focuses/toggles the terminal in a split.
+- `termcwd#vsplitGet()` or `termcwd#vspGet()` spanws/focuses/toggles the terminal in a vertical split.
+- `termcwd#tabGet()` spawns/focuses/toggles the terminal in a new tab.
 
 Optionally they take two arguments:
 
@@ -54,7 +52,7 @@ To never start it in insert mode (only for Neovim):
 let g:termcwd_start_insert = v:false
 ```
 
-To turn off closing of other windows with same terminal and toggling of terminal window:
+To turn off focus, toggling and auto closing of other windows with same terminal:
 
 ```vim
 let g:termcwd_minimalistic = v:true
