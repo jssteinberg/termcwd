@@ -1,6 +1,6 @@
 # termcwd
 
-Termcwd is a tiny package/plugin for Neovim and Vim to quickly toggle open your (Neo)vim terminals.
+Termcwd is a tiny package/plugin for Neovim and Vim to quickly spawn/open/toggle your (Neo)vim terminals.
 
 Install Termcwd and define your preferred mappings (in vimscript).
 
@@ -17,8 +17,10 @@ When you open another CWD within (Neo)vim – for instance when opening another 
 You can also add mappings for any secondary terminals and make it global for the (Neo)vim instance by passing these arguments (the first argument is the terminal name, second is the CWD which defaults to window-local CWD. Here it's empty for a global terminal):
 
 ```vim
-nnoremap <silent> <leader>1 <cmd>call termcwd#splitGet('global', '')<cr>
+nnoremap <silent> <leader>1 <cmd>call termcwd#splitGet("global", "")<cr>
 ```
+
+*You can also turn off the toggling and auto close feature for full manual control by setting the `termcwd_minimal` to `false`, see Configure below.*
 
 ## All functions
 
@@ -36,17 +38,17 @@ Optionally they take two arguments:
 
 *Note: Terminal names are connected to CWDs. Meaning you can use the same terminal name for both your window-local CWD and your global terminal without them interfering.*
 
-### Configure Insert Mode
+### Configure
 
 For consistency between Neovim and Vim – and what's generally a nice workflow – when a new terminal is spawned, insert mode is started (like the default of Vim). Then, normal mode when that terminal is opened the next time (like the default of both Neovim and Vim).
 
-To always start termcwd's returned terminal in insert mode (only for Neovim):
+To always start termcwd's returned terminal in insert mode (only for Neovim since Vim does not support starting insert mode by command in terminal buffer):
 
 ```vim
 let g:termcwd_insert = v:true
 ```
 
-To never start it in insert mode (only for Neovim):
+To never start it in insert mode (only for Neovim since Vim's terminal is only redrawn when in terminal/insert mode):
 
 ```vim
 let g:termcwd_start_insert = v:false
@@ -55,7 +57,7 @@ let g:termcwd_start_insert = v:false
 To turn off focus, toggling and auto closing of other windows with same terminal:
 
 ```vim
-let g:termcwd_minimalistic = v:true
+let g:termcwd_minimal = v:true
 ```
 
 *How to configure above options with lua:*
@@ -63,7 +65,7 @@ let g:termcwd_minimalistic = v:true
 ```lua
 vim.g.termcwd_insert = true
 vim.g.termcwd_start_insert = false
-vim.g.termcwd_minimalistic = true
+vim.g.termcwd_minimal = true
 ```
 
 <details>

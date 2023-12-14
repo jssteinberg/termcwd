@@ -5,9 +5,8 @@ function! termcwd#exists#doSmartHide(get) abort
 	if a:get.tab
 		" if get.tab has one window of same term, close both
 		if winlayout(a:get.tab)[0] == "leaf" && a:get.prev == bufnr()
-			hide
-			try | hide
-			catch | endt
+			exe a:get.tab . "tabclose"
+			try | tabclose | catch | endt
 		endif
 
 	elseif l:others_len < (1 + a:get.split) && a:get.prev == bufnr()
@@ -15,7 +14,7 @@ function! termcwd#exists#doSmartHide(get) abort
 		try | hide
 		catch | try | exe "b#" | catch | echo "No alternate file" | endt
 		endtry
-	elseif get(g:, "termcwd_insert", v:false)
+	elseif get(g:, "termcwd_insert", v:false) && has("nvim")
 		startinsert
 	endif
 endfunction
