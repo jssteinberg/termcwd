@@ -18,13 +18,22 @@ function! termcwd#exists#toggleWindows(t_bufnr, get) abort
 		" 		endif
 		" 	endfor
 		endif
+	else
+		let l:toClose = a:get.prev == bufnr()
 
-	elseif l:others_len < (1 + a:get.split) && a:get.prev == bufnr()
-		" if get.prev is equal hide current focused window or open alt
-		try | hide
-		catch | try | exe "b#" | catch | echo "No alternate file" | endt
-		endtry
-		return v:false
+		if a:get.split && l:others_len && l:toClose
+			" if get.prev is equal hide current focused window or open alt
+			try | hide
+			catch | try | exe "b#" | catch | echo "No alternate file" | endt
+			finally
+				return v:false
+			endtry
+		elseif l:toClose
+			try | exe "b#" | catch | echo "No alternate file"
+			finally
+				return v:false
+			endtry
+		endif
 	endif
 
 	return v:true
