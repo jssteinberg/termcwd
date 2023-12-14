@@ -1,6 +1,6 @@
 # termcwd
 
-Termcwd is a tiny package/plugin for Neovim and Vim to quickly spawn/toggle/focus your (Neo)vim terminals.
+Termcwd is a tiny package/plugin for Neovim and Vim to quickly toggle/focus your (Neo)vim terminals.
 
 Install Termcwd and define your preferred mappings (in vimscript).
 
@@ -10,9 +10,9 @@ nnoremap <silent> <leader><cr> <cmd>call termcwd#splitGet()<cr>
 
 *With Neovim lua you can call the function like this: `vim.fn["termcwd#splitGet"]()`. ([A nice blog post for more Neovim lua](//vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua)).*
 
-Now your leader key + Enter spawns/toggles/focuses your main terminal for the window-local current working directory (CWD).
+Now your leader key + Enter toggles/focuses your main terminal for the window-local current working directory (CWD).
 
-When you open another CWD within (Neo)vim – for instance when opening another session – the same mapping will now spawn/toggle/focus the main terminal for **that** CWD. Then you return to your previous CWD and the same mapping will now toggle that CWD's main terminal.
+When you open another CWD within (Neo)vim – for instance when opening another session – the same mapping will now toggle/focus the main terminal for **that** CWD. Then you return to your previous CWD and the same mapping will now toggle/focus that CWD's main terminal.
 
 You can also add mappings for any secondary terminals and make it global for the (Neo)vim instance by passing these arguments (the first argument is the terminal name, second is the CWD which defaults to window-local CWD. Here it's empty for a global terminal):
 
@@ -24,10 +24,10 @@ nnoremap <silent> <leader>1 <cmd>call termcwd#splitGet("global", "")<cr>
 
 ## All functions
 
-- `termcwd#get()` spawns/toggles the main terminal for the window-local CWD.
-- `termcwd#splitGet()` or `termcwd#spGet()` spanws/toggles the terminal in a split.
-- `termcwd#vsplitGet()` or `termcwd#vspGet()` spanws/toggles the terminal in a vertical split.
-- `termcwd#tabGet()` spawns/toggles the terminal in a new tab.
+- `termcwd#get()` toggles/focuses the main terminal for the window-local CWD.
+- `termcwd#splitGet()` or `termcwd#spGet()` toggles/focuses the terminal in a split.
+- `termcwd#vsplitGet()` or `termcwd#vspGet()` toggles/focuses the terminal in a vertical split.
+- `termcwd#tabGet()` toggles the terminal in a new tab.
 
 *All functions spawns a new terminal if it is doesn't exist for the particular reference.*
 
