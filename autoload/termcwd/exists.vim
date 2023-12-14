@@ -1,4 +1,5 @@
-function! termcwd#exists#doSmartHide(t_bufnr, get) abort
+" returns true if terminal is open and focused
+function! termcwd#exists#toggle(t_bufnr, get) abort
 	" hide other equal terms
 	let l:others_len = a:get.fromTab ? 0 : s:HideOtherWinbufnrs()
 
@@ -8,6 +9,7 @@ function! termcwd#exists#doSmartHide(t_bufnr, get) abort
 		if winlayout(a:get.fromTab)[0] == "leaf" && a:get.prev == bufnr()
 			exe a:get.fromTab . "tabclose"
 			try | tabclose | catch | endt
+			return v:false
 		" else
 		" 	for l:t_nr in range(1, tabpagenr("$"))
 		" 		if l:t_nr != tabpagenr() && winlayout(l:t_nr)[0] == "leaf" && winbufnr(tabpagewinnr(l:t_nr)) == a:t_bufnr
@@ -22,9 +24,10 @@ function! termcwd#exists#doSmartHide(t_bufnr, get) abort
 		try | hide
 		catch | try | exe "b#" | catch | echo "No alternate file" | endt
 		endtry
-	elseif get(g:, "termcwd_insert", v:false) && has("nvim")
-		startinsert
+		return v:false
 	endif
+
+	return v:true
 endfunction
 
 function s:HideOtherWinbufnrs() abort
