@@ -33,6 +33,7 @@ function! s:GetTerm(args) abort
 	let l:cwd = get(a:args, 1, getcwd(0))
 	let l:key = string(l:term) . "_" . l:cwd
 	let l:existed = v:false
+	let l:existed_terminal_focused = v:false
 
 	try
 		" try if terminal exists
@@ -56,8 +57,10 @@ function! s:GetTerm(args) abort
 	endtry
 
 	if l:existed && !get(g:, "termcwd_minimal", v:false)
-		call termcwd#exists#doSmartHide(g:termcwd_bufnrs[l:key], s:set)
-	elseif l:existed && has("nvim") && get(g:, "termcwd_insert", v:false)
+		let l:existed_terminal_focused = termcwd#exists#toggleWindows(g:termcwd_bufnrs[l:key], s:set)
+	endif
+
+	if l:existed_terminal_focused && has("nvim") && get(g:, "termcwd_insert", v:false)
 		startinsert
 	endif
 endfunction
