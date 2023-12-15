@@ -17,24 +17,43 @@ function! termcwd#exists#toggleWindows(t_bufnr, get) abort
 		endif
 	else
 		let l:toClose = a:get.prev == bufnr()
-		" hide other equal terms
-		let l:others_len = s:HideOtherWinbufnrs()
 
-		if a:get.split && l:others_len && l:toClose
+		" TODO: use termcwd#hide#allOtherWinbufnrInTab() instead of if/else below?
+		if a:get.split && l:toClose && s:HideOtherWinbufnrs()
 			" if get.prev is equal hide current focused window or open alt
 			try | hide
-			catch | try | exe "b#" | catch | echo "No alternate file" | endt
+			catch | try | exe "b#" | catch | call s:NotifyNoAlt() | endt
 			finally | return v:false
 			endtry
 		elseif l:toClose
+			let l:toClose = bufnr()
 			try | exe "b#"
-			catch | echo "No alternate file"
-			finally | return v:false
+			catch | call s:NotifyNoAlt()
+			finally
+				call termcwd#hide#allOtherBufwinnrInTab(l:toClose)
+				return v:false
 			endtry
 		endif
+
+		" Go to first occurence of terminal in another window and hide
+		" current
+		for l:w_nr in range(1, winnr("$"))
+			if l:w_nr != winnr() && winbufnr(l:w_nr) == a:t_bufnr
+				" winnr to close (current window)
+				let l:notUse = winnr()
+				exe l:w_nr . "wincmd w"
+				try | exe l:notUse . "hide" | catch | finally | break | endt
+			endif
+		endfor
+
+		call termcwd#hide#allOtherBufwinnrInTab()
 	endif
 
 	return v:true
+endfunction
+
+function s:NotifyNoAlt() abort
+	echo "No alternate file"
 endfunction
 
 function s:HideOtherWinbufnrs() abort
