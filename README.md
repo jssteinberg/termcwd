@@ -105,4 +105,5 @@ but all (Neo)vim packages/plugins should just do it when possible.
 
 ## TODO
 
+- split with option for full width
 - rename to "shwd"?
