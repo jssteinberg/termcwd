@@ -106,4 +106,5 @@ but all (Neo)vim packages/plugins should just do it when possible.
 ## TODO
 
 - split with option for full width
+- hide terminal buffers from ls list option (so doesnt pollute alt file)?
 - rename to "shwd"?
