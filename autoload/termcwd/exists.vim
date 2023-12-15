@@ -1,8 +1,5 @@
 " returns true if terminal is open and focused
 function! termcwd#exists#toggleWindows(t_bufnr, get) abort
-	" hide other equal terms
-	let l:others_len = a:get.fromTab ? 0 : s:HideOtherWinbufnrs()
-
 	if a:get.fromTab
 		" if fromTab has a single window with interacted terminal (bufnr), close both
 		" else, loop tabs, if two tabs has single window with terminal bufnr, close the other tab (TODO: reuse tab)
@@ -20,6 +17,8 @@ function! termcwd#exists#toggleWindows(t_bufnr, get) abort
 		endif
 	else
 		let l:toClose = a:get.prev == bufnr()
+		" hide other equal terms
+		let l:others_len = s:HideOtherWinbufnrs()
 
 		if a:get.split && l:others_len && l:toClose
 			" if get.prev is equal hide current focused window or open alt
