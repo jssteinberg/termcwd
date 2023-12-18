@@ -39,7 +39,7 @@ Optionally they take two arguments:
 *The actual folder path the terminal starts in is (Neo)vim default window-local CWD. Which is usually what you want.*
 
 > [!NOTE]
-> Terminal names are connected to their CWDs. Meaning you can use the same terminal name for both your window-local CWD and your global terminal without them interfering.*
+> Terminal names are connected to their CWDs. Meaning you can use the same terminal name for both your window-local CWD and your global terminal without them interfering.
 
 ### Configure
 
