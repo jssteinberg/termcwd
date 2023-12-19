@@ -11,12 +11,10 @@ endfunction
 " open terminal in split
 function! termcwd#splitGet(...) abort
 	let s:set = #{ prev: bufnr(), split: 1, fromTab: 0 }
-	wincmd s | call s:GetTerm(a:000)
-endfunction
-" open terminal in vsplit
-function! termcwd#vsplitGet(...) abort
-	let s:set = #{ prev: bufnr(), split: 1, fromTab: 0 }
-	wincmd v | call s:GetTerm(a:000)
+	wincmd s
+	if get(g:, "termcwd_split_full_top", v:false) | wincmd K | en
+	if get(g:, "termcwd_split_full_bottom", v:false) | wincmd J | en
+	call s:GetTerm(a:000)
 endfunction
 " open terminal in tab
 function! termcwd#tabGet(...) abort
@@ -24,16 +22,15 @@ function! termcwd#tabGet(...) abort
 	try | tabedit % | catch | endtry
 	call s:GetTerm(a:000)
 endfunction
-" alias some functions
+" aliases
 let termcwd#spGet = function("termcwd#splitGet")
-let termcwd#vsGet = function("termcwd#vsplitGet")
 
 function! s:GetTerm(args) abort
 	let l:term = get(a:args, 0, "main")
 	let l:cwd = get(a:args, 1, getcwd(0))
 	let l:key = string(l:term) . "_" . l:cwd
 	let l:existed = v:false
-	let l:existed_terminal_focused = v:false
+	let l:existed_terminal_focused = get(g:, "termcwd_minimal", v:false)
 
 	try
 		" try if terminal exists

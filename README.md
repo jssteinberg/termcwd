@@ -26,7 +26,6 @@ nnoremap <silent> <leader>1 <cmd>call termcwd#splitGet("global", "")<cr>
 
 - `termcwd#get()` toggles/focuses the main terminal for the window-local CWD.
 - `termcwd#splitGet()` or `termcwd#spGet()` toggles/focuses the terminal in a split.
-- `termcwd#vsplitGet()` or `termcwd#vspGet()` toggles/focuses the terminal in a vertical split.
 - `termcwd#tabGet()` toggles the terminal in a new tab.
 
 *All functions spawns a new terminal if it is doesn't exist for the particular reference.*
@@ -45,6 +44,23 @@ Optionally they take two arguments:
 
 For consistency between Neovim and Vim – and what's generally a nice workflow – when a new terminal is spawned, insert mode is started (like the default of Vim). Then, normal mode when that terminal is opened the next time (like the default of both Neovim and Vim).
 
+To always move a split window to full width and top or bottom:
+
+```vim
+" termcwd is split to top and full width
+let g:termcwd_split_full_top = v:true
+" termcwd is split to bottom and full width
+let g:termcwd_split_full_bottom = v:true
+```
+
+To turn off closing of other windows with same terminal and toggling of terminal window:
+
+```vim
+let g:termcwd_minimal = v:true
+```
+
+### Neovim only config
+
 To always start termcwd's returned terminal in insert mode (only for Neovim since Vim does not support starting insert mode by command in terminal buffer):
 
 ```vim
@@ -55,12 +71,6 @@ To never start it in insert mode (only for Neovim since Vim's terminal is only r
 
 ```vim
 let g:termcwd_start_insert = v:false
-```
-
-To turn off closing of other windows with same terminal and toggling of terminal window:
-
-```vim
-let g:termcwd_minimal = v:true
 ```
 
 *How to configure above options with lua:*
@@ -106,6 +116,7 @@ but all (Neo)vim packages/plugins should just do it when possible.
 
 ## TODO
 
-- split with option for full width
+- [v] split with option for full width
+- reuse tab for `termcwd#tagGet()`
 - hide terminal buffers from ls list option (so doesnt pollute alt file)?
 - rename to "shwd"?
