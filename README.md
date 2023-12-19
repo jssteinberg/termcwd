@@ -117,6 +117,6 @@ but all (Neo)vim packages/plugins should just do it when possible.
 ## TODO
 
 - [v] split with option for full width
-- reuse tab for `termcwd#tagGet()`
+- [v] reuse tab for `termcwd#tagGet()`
 - hide terminal buffers from ls list option (so doesnt pollute alt file)?
 - rename to "shwd"?

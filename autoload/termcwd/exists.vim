@@ -3,20 +3,22 @@ function! termcwd#exists#toggleWindows(t_bufnr, get) abort
 	if a:get.fromTab
 		" if fromTab has a single window with interacted terminal (bufnr), close both
 		" else, loop tabs, if two tabs has single window with terminal bufnr, close the other tab (TODO: reuse tab)
-		if winlayout(a:get.fromTab)[0] == "leaf" && a:get.prev == bufnr()
+		if winlayout(a:get.fromTab)[0] == "leaf" && a:get.prev == a:t_bufnr
+			" win layout of prev tab was single window with terminal
 			exe a:get.fromTab . "tabclose"
 			try | tabclose | catch | endt
 			return v:false
-		" else
-		" 	for l:t_nr in range(1, tabpagenr("$"))
-		" 		if l:t_nr != tabpagenr() && winlayout(l:t_nr)[0] == "leaf" && winbufnr(tabpagewinnr(l:t_nr)) == a:t_bufnr
-		" 			exe l:t_nr . "tabclose"
-		" 			break
-		" 		endif
-		" 	endfor
+		else
+			" check if any other tab has single window layout with terminal
+			for l:tab in range(1, tabpagenr("$"))
+				if l:tab != tabpagenr() && winlayout(l:tab)[0] == "leaf" && tabpagebuflist(l:tab)[0] == a:t_bufnr
+					exe l:tab . "tabclose"
+					break
+				endif
+			endfor
 		endif
 	else
-		let l:toClose = a:get.prev == bufnr()
+		let l:toClose = a:get.prev == a:t_bufnr
 
 		" TODO: use termcwd#hide#allOtherWinbufnrInTab() instead of if/else below?
 		if a:get.split && l:toClose && s:HideOtherWinbufnrs()
@@ -26,7 +28,7 @@ function! termcwd#exists#toggleWindows(t_bufnr, get) abort
 			finally | return v:false
 			endtry
 		elseif l:toClose
-			let l:toClose = bufnr()
+			let l:toClose = a:t_bufnr
 			try | exe "b#"
 			catch | call s:NotifyNoAlt()
 			finally
