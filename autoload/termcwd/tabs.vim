@@ -1,6 +1,6 @@
 function! termcwd#tabs#toggle(t_bufnr, get) abort
-	" if fromTab has a single window with interacted terminal (bufnr), close both
-	" else, loop tabs, if two tabs has single window with terminal bufnr, close the other tab (TODO: reuse tab)
+	" IF fromTab has a single window with interacted terminal (bufnr), close both
+	" ELSE, loop tabs, if two tabs has single window with terminal bufnr, close the other tab
 	if winlayout(a:get.fromTab)[0] == "leaf" && a:get.prev == a:t_bufnr
 		" win layout of prev tab was single window with terminal
 		exe a:get.fromTab . "tabclose"
@@ -15,4 +15,6 @@ function! termcwd#tabs#toggle(t_bufnr, get) abort
 			endif
 		endfor
 	endif
+
+	return v:true
 endfunction
