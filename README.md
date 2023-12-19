@@ -14,7 +14,7 @@ Now your leader key + Enter toggles/focuses your main terminal for the window-lo
 
 When you open another CWD within (Neo)vim – for instance when opening another session – the same mapping will now toggle/focus the main terminal for **that** CWD. Then you return to your previous CWD and the same mapping will now toggle/focus that CWD's main terminal.
 
-You can also add mappings for any secondary terminals and make it global for the (Neo)vim instance by passing these arguments (the first argument is the terminal name, second is the CWD which defaults to window-local CWD. Here it's empty for a global terminal):
+You can also add mappings for any secondary terminals and make it global for the (Neo)vim instance by passing these arguments (the first argument is the terminal name, second is the CWD which defaults to window-local CWD. Here it's empty for a global terminal, though terminal path equals window CWD where first opened):
 
 ```vim
 nnoremap <silent> <leader>1 <cmd>call termcwd#splitGet("global", "")<cr>
