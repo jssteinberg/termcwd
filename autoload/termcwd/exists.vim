@@ -1,42 +1,20 @@
 " returns true if terminal is open and focused
-function! termcwd#exists#toggleWindows(t_bufnr, get) abort
+function! termcwd#exists#toggleTermcwd(t_bufnr, get) abort
 	if a:get.fromTab
-		" if fromTab has a single window with interacted terminal (bufnr), close both
-		" else, loop tabs, if two tabs has single window with terminal bufnr, close the other tab (TODO: reuse tab)
-		if winlayout(a:get.fromTab)[0] == "leaf" && a:get.prev == a:t_bufnr
-			" win layout of prev tab was single window with terminal
-			exe a:get.fromTab . "tabclose"
-			try | tabclose | catch | endt
-			return v:false
-		else
-			" check if any other tab has single window layout with terminal
-			for l:tab in range(1, tabpagenr("$"))
-				if l:tab != tabpagenr() && winlayout(l:tab)[0] == "leaf" && tabpagebuflist(l:tab)[0] == a:t_bufnr
-					exe l:tab . "tabclose"
-					break
-				endif
-			endfor
-		endif
+		return termcwd#tabs#toggle(a:t_bufnr, a:get)
+	elseif a:get.prev == a:t_bufnr
+		" Prev equal current, so toggle close.
+		" close all others
+		call termcwd#hide#allOtherBufwinnrInTab()
+		" handle closing current terminal window
+		try
+			if a:get.split
+				hide
+			endif
+		catch | try | exe "b#" | catch | call s:NotifyNoAlt() | endt
+		finally | return v:false
+		endtry
 	else
-		let l:toClose = a:get.prev == a:t_bufnr
-
-		" TODO: use termcwd#hide#allOtherWinbufnrInTab() instead of if/else below?
-		if a:get.split && l:toClose && s:HideOtherWinbufnrs()
-			" if get.prev is equal hide current focused window or open alt
-			try | hide
-			catch | try | exe "b#" | catch | call s:NotifyNoAlt() | endt
-			finally | return v:false
-			endtry
-		elseif l:toClose
-			let l:toClose = a:t_bufnr
-			try | exe "b#"
-			catch | call s:NotifyNoAlt()
-			finally
-				call termcwd#hide#allOtherBufwinnrInTab(l:toClose)
-				return v:false
-			endtry
-		endif
-
 		" Go to first occurence of terminal in another window and hide
 		" current
 		for l:w_nr in range(1, winnr("$"))
@@ -56,23 +34,4 @@ endfunction
 
 function s:NotifyNoAlt() abort
 	echo "No alternate file"
-endfunction
-
-function s:HideOtherWinbufnrs() abort
-	let l:close_winnrs = []
-
-	" store windows to close
-	for l:w_nr in range(1, winnr("$"))
-		if l:w_nr != winnr() && winbufnr(l:w_nr) == bufnr()
-			call add(l:close_winnrs, l:w_nr)
-		endif
-		" break if 2 or more windows to close---need recursion
-		if len(l:close_winnrs) > 1 | break | en
-	endfor
-
-	" hide all windows in close_winnrs recursively since new nrs when hide
-	if len(l:close_winnrs) > 0 | exe l:close_winnrs[0] . "hide" | en
-	if len(l:close_winnrs) > 1 | call s:HideOtherWinbufnrs() | en
-
-	return len(l:close_winnrs)
 endfunction

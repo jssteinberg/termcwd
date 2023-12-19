@@ -54,7 +54,7 @@ function! s:GetTerm(args) abort
 	endtry
 
 	if l:existed && !get(g:, "termcwd_minimal", v:false)
-		let l:existed_terminal_focused = termcwd#exists#toggleWindows(g:termcwd_bufnrs[l:key], s:set)
+		let l:existed_terminal_focused = termcwd#exists#toggleTermcwd(g:termcwd_bufnrs[l:key], s:set)
 	endif
 
 	if l:existed_terminal_focused && has("nvim") && get(g:, "termcwd_insert", v:false)
