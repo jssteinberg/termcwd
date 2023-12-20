@@ -71,8 +71,6 @@ Optionally they take two arguments:
 
 ### Configure
 
-For consistency between Neovim and Vim – and what's generally a nice workflow – when a new terminal is spawned, insert mode is started (like the default of Vim). Then, normal mode when that terminal is opened the next time (like the default of both Neovim and Vim).
-
 To always move a split window to full width and top or bottom:
 
 ```vim
@@ -95,6 +93,8 @@ let g:termcwd_minimal = v:true
 ```
 
 ### Neovim only config
+
+For consistency between Neovim and Vim – and what's generally a nice workflow – when a new terminal is spawned, insert mode is started (like the default of Vim). Then, normal mode when that terminal is opened the next time (like the default of both Neovim and Vim).
 
 To always start termcwd's returned terminal in insert mode (only for Neovim since Vim does not support starting insert mode by command in terminal buffer):
 
