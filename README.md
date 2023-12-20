@@ -1,8 +1,8 @@
 # termcwd
 
-Termcwd is a tiny package/plugin for Neovim and Vim to quickly toggle/focus your (Neo)vim terminals.
+Termcwd is a tiny package/plugin for Neovim and Vim providing a simple wrapper for the native terminal to quickly toggle/focus your (Neo)vim terminals.
 
-Install Termcwd and define your preferred mappings (in vimscript).
+Install Termcwd and define your preferred mappings (see below for Lua).
 
 ```vim
 nnoremap <silent> <leader><cr> <cmd>call termcwd#splitGet()<cr>
@@ -119,6 +119,26 @@ Install "jssteinberg/termcwd" with any (Neo)vim package/plugin manager, or clone
 
 Termcwd is already lazy loaded (defined only when used) so you don't have to do any config for lazy loading. By simply using (Neo)vim's "autoload" directory (`:h autoload-functions`) there's no additional startuptime for your (n)vim instance. Ironically it's too light for lazy loading to matter,
 but all (Neo)vim packages/plugins should just do it when possible.
+
+*Lazy.nvim example:*
+
+```lua
+{
+	"jssteinberg/termcwd",
+	config = function()
+		-- Example key mappings
+		vim.keymap.set("n", "<leader><cr>", function()
+			vim.fn["termcwd#splitGet"]()
+		end, { desc = "Terminal (CWD)" })
+		vim.keymap.set("n", "<leader>t<cr>", function()
+			vim.fn["termcwd#tabGet"]()
+		end, { desc = "Terminal tab (CWD)" })
+		vim.keymap.set("n", "<leader>1", function()
+			vim.fn["termcwd#splitGet"]("global", "")
+		end, { desc = "Terminal" })
+	end
+}
+```
 
 ## TODO
 
