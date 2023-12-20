@@ -8,16 +8,12 @@ endfunction
 
 function! termcwd#hide#splitBuffers() abort
 	hide
+
 	try
 		hide
-	catch
-		try
-			exe "b#"
-		catch
-			call termcwd#notify#noAltFile()
-		endtry
-	finally
 		return v:true
+	catch
+		return termcwd#hide#buffer()
 	endtry
 endfunction
 
