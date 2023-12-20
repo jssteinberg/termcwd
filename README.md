@@ -2,7 +2,7 @@
 
 Termcwd is a tiny package/plugin for Neovim and Vim providing a simple wrapper for the native terminal to quickly toggle/focus your (Neo)vim terminals.
 
-Install Termcwd and define your preferred mappings (see below for Lua).
+Install Termcwd and define your preferred mappings (for Lua see Installation).
 
 ```vim
 nnoremap <silent> <leader><cr> <cmd>call termcwd#splitGet()<cr>
@@ -18,9 +18,40 @@ You can also add mappings for any secondary terminals and make it global for the
 nnoremap <silent> <leader>1 <cmd>call termcwd#splitGet("global", "")<cr>
 ```
 
-*You can also turn off the toggling and auto close feature for full manual control by setting the `termcwd_minimal` to `false`, see Configure below.*
+*You can also turn off the toggling and auto close feature for full manual control by setting the global `termcwd_minimal` to `false`. See Configure below.*
+
+## Install
+
+Install "jssteinberg/termcwd" with any (Neo)vim package/plugin manager, or clone/download it to a "pack/\*/start" `runtimepath` folder (`:h packages`).
+
+Termcwd is already lazy loaded (defined only when used) so you don't have to do any config for lazy loading. By simply using (Neo)vim's "autoload" directory (`:h autoload-functions`) there's no additional startuptime for your (n)vim instance. Ironically it's too light for lazy loading to matter,
+but all (Neo)vim packages/plugins should just do it when possible.
+
+*Lazy.nvim example:*
+
+```lua
+{
+	"jssteinberg/termcwd",
+	config = function()
+		-- Example key mappings
+		vim.keymap.set("n", "<leader><cr>", function()
+			vim.fn["termcwd#splitGet"]()
+		end, { desc = "Terminal (CWD)" })
+		vim.keymap.set("n", "<leader>t<cr>", function()
+			vim.fn["termcwd#tabGet"]()
+		end, { desc = "Terminal tab (CWD)" })
+		vim.keymap.set("n", "<leader>1", function()
+			vim.fn["termcwd#splitGet"]("global", "")
+		end, { desc = "Terminal" })
+	end
+}
+```
+
+*With Lua you call vimscript functions with: `vim.fn` or `vim.call`. Vim function aliases are not available. ([More about Neovim Lua](//vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua)).*
 
 ## All functions
+
+*Vimscript:*
 
 - `termcwd#get()` toggles/focuses the main terminal for the window-local CWD.
 - `termcwd#splitGet()` (or vimscript alias `termcwd#spGet()`) toggles/focuses the terminal in a split.
@@ -113,35 +144,6 @@ nn <silent> <leader>C <cmd>exe "try\n tabclose\n catch\n qa\n endtry"<cr>
 ```
 
 </details>
-
-## Install
-
-Install "jssteinberg/termcwd" with any (Neo)vim package/plugin manager, or clone/download it to a "pack/\*/start" `runtimepath` folder (`:h packages`).
-
-Termcwd is already lazy loaded (defined only when used) so you don't have to do any config for lazy loading. By simply using (Neo)vim's "autoload" directory (`:h autoload-functions`) there's no additional startuptime for your (n)vim instance. Ironically it's too light for lazy loading to matter,
-but all (Neo)vim packages/plugins should just do it when possible.
-
-*Lazy.nvim example:*
-
-```lua
-{
-	"jssteinberg/termcwd",
-	config = function()
-		-- Example key mappings
-		vim.keymap.set("n", "<leader><cr>", function()
-			vim.fn["termcwd#splitGet"]()
-		end, { desc = "Terminal (CWD)" })
-		vim.keymap.set("n", "<leader>t<cr>", function()
-			vim.fn["termcwd#tabGet"]()
-		end, { desc = "Terminal tab (CWD)" })
-		vim.keymap.set("n", "<leader>1", function()
-			vim.fn["termcwd#splitGet"]("global", "")
-		end, { desc = "Terminal" })
-	end
-}
-```
-
-*With Lua you call vim functions with: `vim.fn` or `vim.call`. Vim function aliases are not available. ([More about Neovim Lua](//vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua)).*
 
 ## TODO
 
