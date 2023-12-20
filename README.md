@@ -53,6 +53,12 @@ let g:termcwd_split_full_top = v:true
 let g:termcwd_split_full_bottom = v:true
 ```
 
+To only keep a single window per termcwd name and/or working directory:
+
+```vim
+let g:termcwd_single = v:true
+```
+
 To turn off closing of other windows with same terminal and toggling of terminal window:
 
 ```vim

@@ -1,5 +1,10 @@
 function! termcwd#hide#inCurrentTab(isSplit) abort
-	call termcwd#hide#allOtherBufwinnrInTab()
+	if get(g:, "termcwd_single", v:false)
+		call termcwd#hide#allOtherBufwinnrInTab()
+	else
+		hide
+	endif
+
 	return termcwd#hide#buffer(a:isSplit)
 endfunction
 
@@ -9,8 +14,14 @@ function! termcwd#hide#buffer(inSplit) abort
 		if a:inSplit
 			hide
 		endif
-	catch | try | exe "b#" | catch | call termcwd#notify#noAltFile() | endt
-	finally | return v:true
+	catch
+		try
+			exe "b#"
+		catch
+			call termcwd#notify#noAltFile()
+		endt
+	finally
+		return v:true
 	endtry
 endfunction
 
