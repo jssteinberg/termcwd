@@ -8,8 +8,6 @@ Install Termcwd and define your preferred mappings (see below for Lua).
 nnoremap <silent> <leader><cr> <cmd>call termcwd#splitGet()<cr>
 ```
 
-*With Neovim lua you can call the function like this: `vim.fn["termcwd#splitGet"]()`. ([A nice blog post for more Neovim lua](//vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua)).*
-
 Now your leader key + Enter toggles/focuses your main terminal for the window-local current working directory (CWD).
 
 When you open another CWD within (Neo)vim – for instance when opening another session – the same mapping will now toggle/focus the main terminal for **that** CWD. Then you return to your previous CWD and the same mapping will now toggle/focus that CWD's main terminal.
@@ -25,7 +23,7 @@ nnoremap <silent> <leader>1 <cmd>call termcwd#splitGet("global", "")<cr>
 ## All functions
 
 - `termcwd#get()` toggles/focuses the main terminal for the window-local CWD.
-- `termcwd#splitGet()` or `termcwd#spGet()` toggles/focuses the terminal in a split.
+- `termcwd#splitGet()` (or vimscript alias `termcwd#spGet()`) toggles/focuses the terminal in a split.
 - `termcwd#tabGet()` toggles the terminal in a new tab.
 
 *All functions spawns a new terminal if it is doesn't exist for the particular reference.*
@@ -82,9 +80,12 @@ let g:termcwd_start_insert = v:false
 *How to configure above options with lua:*
 
 ```lua
+vim.g.termcwd_split_full_top = true
+vim.g.termcwd_split_full_bottom = true
+vim.g.termcwd_single = true
+vim.g.termcwd_minimal = true
 vim.g.termcwd_insert = true
 vim.g.termcwd_start_insert = false
-vim.g.termcwd_minimal = true
 ```
 
 <details>
@@ -139,6 +140,8 @@ but all (Neo)vim packages/plugins should just do it when possible.
 	end
 }
 ```
+
+*With Lua you call vim functions with: `vim.fn` or `vim.call`. Vim function aliases are not available. ([More about Neovim Lua](//vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua)).*
 
 ## TODO
 
