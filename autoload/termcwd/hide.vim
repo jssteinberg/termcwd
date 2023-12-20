@@ -1,25 +1,31 @@
 function! termcwd#hide#inCurrentTab(isSplit) abort
 	if get(g:, "termcwd_single", v:false)
 		call termcwd#hide#allOtherBufwinnrInTab()
-	else
-		hide
 	endif
 
-	return termcwd#hide#buffer(a:isSplit)
+	return a:isSplit ? termcwd#hide#splitBuffers() : termcwd#hide#buffer()
 endfunction
 
-function! termcwd#hide#buffer(inSplit) abort
-	" handle closing current terminal window
+function! termcwd#hide#splitBuffers() abort
+	hide
 	try
-		if a:inSplit
-			hide
-		endif
+		hide
 	catch
 		try
 			exe "b#"
 		catch
 			call termcwd#notify#noAltFile()
-		endt
+		endtry
+	finally
+		return v:true
+	endtry
+endfunction
+
+function! termcwd#hide#buffer() abort
+	try
+		exe "b#"
+	catch
+		call termcwd#notify#noAltFile()
 	finally
 		return v:true
 	endtry
