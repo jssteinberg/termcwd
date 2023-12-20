@@ -1,3 +1,19 @@
+function! termcwd#hide#inCurrentTab(isSplit) abort
+	call termcwd#hide#allOtherBufwinnrInTab()
+	return termcwd#hide#buffer(a:isSplit)
+endfunction
+
+function! termcwd#hide#buffer(inSplit) abort
+	" handle closing current terminal window
+	try
+		if a:inSplit
+			hide
+		endif
+	catch | try | exe "b#" | catch | call termcwd#notify#noAltFile() | endt
+	finally | return v:true
+	endtry
+endfunction
+
 " return number of windows closed
 function! termcwd#hide#allOtherBufwinnrInTab(bufnr = bufnr()) abort
 	let l:close_winnrs = []
