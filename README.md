@@ -2,7 +2,7 @@
 
 Termcwd is a tiny package/plugin for Neovim and Vim providing a simple wrapper for the native terminal to quickly toggle/focus your (Neo)vim terminals.
 
-Install Termcwd and define your preferred mappings (for Lua see Installation).
+Install Termcwd and define your preferred mappings (for Lua, see Install).
 
 ```vim
 nnoremap <silent> <leader><cr> <cmd>call termcwd#splitGet()<cr>
