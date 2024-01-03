@@ -47,15 +47,15 @@ Vimscript (see equal Lua functions below):
 
 - `termcwd#get()` toggles/focuses the main terminal for the window-local CWD.
 - `termcwd#splitGet()` (or alias `termcwd#spGet()`) toggles/focuses the terminal in a split.
-- `termcwd#tabGet()` toggles the terminal in a new tab.
+- `termcwd#tabGet()` toggles/focuses the terminal in a tab.
 
-*With Lua you can call vimscript functions with: `vim.fn` or `vim.call` – vimscript function aliases are not available ([more about Neovim Lua](//vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua)) – but termcwd provides Lua wrapper functions.*
+*With Lua you can call vimscript functions with: `vim.fn` or `vim.call` – vimscript function aliases are not available ([more about Lua usage](//vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua)) – but termcwd provides Lua wrapper functions.*
 
 Lua:
 
 - `require("termcwd").get()` toggles/focuses the main terminal for the window-local CWD.
 - `require("termcwd").split()` (or Lua alias `require("termcwd").sp()`) toggles/focuses the terminal in a split.
-- `require("termcwd").tab()` toggles the terminal in a new tab.
+- `require("termcwd").tab()` toggles/focuses the terminal in a tab.
 
 All functions:
 
@@ -147,7 +147,5 @@ nn <silent> <leader>C <cmd>exe "try\n tabclose\n catch\n qa\n endtry"<cr>
 
 ## TODO
 
-- [v] split with option for full width
-- [v] reuse tab for `termcwd#tagGet()`
+- smarter/configurable height for split windows
 - hide terminal buffers from ls list option (so doesnt pollute alt file)?
-- rename to "shwd"?
