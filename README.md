@@ -34,34 +34,40 @@ but all (Neo)vim packages/plugins should just do it when possible.
 	"jssteinberg/termcwd",
 	config = function()
 		-- Example key mappings
-		vim.keymap.set("n", "<leader><cr>", require("termcwd").sp(), { desc = "Terminal (CWD)" })
+		vim.keymap.set("n", "<leader><cr>", require("termcwd").split(), { desc = "Terminal (CWD)" })
 		vim.keymap.set("n", "<leader>t<cr>", require("termcwd").tab(), { desc = "Terminal tab (CWD)" })
-		vim.keymap.set("n", "<leader>1", require("termcwd").sp(1, ""), { desc = "Terminal" })
+		vim.keymap.set("n", "<leader>1", require("termcwd").split(1, ""), { desc = "Terminal" })
 	end
 }
 ```
 
-## All functions
+## Functions for Vimscript and Lua
 
-*Vimscript:*
+Vimscript (see equal Lua functions below):
 
 - `termcwd#get()` toggles/focuses the main terminal for the window-local CWD.
-- `termcwd#splitGet()` (or vimscript alias `termcwd#spGet()`) toggles/focuses the terminal in a split.
+- `termcwd#splitGet()` (or alias `termcwd#spGet()`) toggles/focuses the terminal in a split.
 - `termcwd#tabGet()` toggles the terminal in a new tab.
 
-*All functions spawns a new terminal if it is doesn't exist for the particular reference.*
+*With Lua you can call vimscript functions with: `vim.fn` or `vim.call` – vimscript function aliases are not available ([more about Neovim Lua](//vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua)) – but termcwd provides Lua wrapper functions.*
 
-Optionally they take two arguments:
+Lua:
 
-1. (number | string) – the terminal to open (`"main"` by default).
-2. (string) – the CWD termcwd will open the terminal from (window-local CWD by default – `getcwd(0)`). Use an empty string to be able to open it from any CWD, or configure with `getcwd()`.
+- `require("termcwd").get()` toggles/focuses the main terminal for the window-local CWD.
+- `require("termcwd").split()` (or Lua alias `require("termcwd").sp()`) toggles/focuses the terminal in a split.
+- `require("termcwd").tab()` toggles the terminal in a new tab.
+
+All functions:
+
+- Spawns a new terminal if it is doesn't exist for the particular reference.
+- Optionally they take two arguments:
+	1. (number | string) – the terminal to open (`"main"` by default).
+	2. (string) – the CWD termcwd will open the terminal from (window-local CWD by default – `getcwd(0)`). Use an empty string to be able to open it from any CWD, or configure with `getcwd()`.
 
 *The actual folder path the terminal starts in is (Neo)vim default window-local CWD. Which is usually what you want.*
 
 > [!NOTE]
 > Terminal names are connected to their CWDs. Meaning you can use the same terminal name for both your window-local CWD and your global terminal without them interfering.
-
-*With Lua you can call vimscript functions with: `vim.fn` or `vim.call` – vimscript function aliases are not available ([more about Neovim Lua](//vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua)) – but termcwd provides Lua wrapper functions.*
 
 ### Configure
 
