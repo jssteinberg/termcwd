@@ -41,8 +41,6 @@ but all (Neo)vim packages/plugins should just do it when possible.
 }
 ```
 
-*With Lua you call vimscript functions with: `vim.fn` or `vim.call`. Vim function aliases are not available. ([More about Neovim Lua](//vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua)).*
-
 ## All functions
 
 *Vimscript:*
@@ -62,6 +60,8 @@ Optionally they take two arguments:
 
 > [!NOTE]
 > Terminal names are connected to their CWDs. Meaning you can use the same terminal name for both your window-local CWD and your global terminal without them interfering.
+
+*With Lua you can call vimscript functions with: `vim.fn` or `vim.call` – vimscript function aliases are not available ([more about Neovim Lua](//vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua)) – but termcwd provides Lua wrapper functions.*
 
 ### Configure
 
