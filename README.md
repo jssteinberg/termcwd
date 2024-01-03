@@ -1,14 +1,12 @@
 # termcwd
 
-Termcwd is a tiny package/plugin for Neovim and Vim to quickly toggle/focus your (Neo)vim terminals.
+Termcwd is a tiny package/plugin for Neovim and Vim providing a simple wrapper for the native terminal to quickly toggle/focus your (Neo)vim terminals.
 
-Install Termcwd and define your preferred mappings (in vimscript).
+Install Termcwd and define your preferred mappings (for Lua, see Install).
 
 ```vim
 nnoremap <silent> <leader><cr> <cmd>call termcwd#splitGet()<cr>
 ```
-
-*With Neovim lua you can call the function like this: `vim.fn["termcwd#splitGet"]()`. ([A nice blog post for more Neovim lua](//vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua)).*
 
 Now your leader key + Enter toggles/focuses your main terminal for the window-local current working directory (CWD).
 
@@ -20,12 +18,37 @@ You can also add mappings for any secondary terminals and make it global for the
 nnoremap <silent> <leader>1 <cmd>call termcwd#splitGet("global", "")<cr>
 ```
 
-*You can also turn off the toggling and auto close feature for full manual control by setting the `termcwd_minimal` to `false`, see Configure below.*
+*You can also turn off the toggling and auto close feature for full manual control by setting the global `termcwd_minimal` to `false`. See Configure below.*
+
+## Install
+
+Install "jssteinberg/termcwd" with any (Neo)vim package/plugin manager, or clone/download it to a "pack/\*/start" `runtimepath` folder (`:h packages`).
+
+Termcwd is already lazy loaded (defined only when used) so you don't have to do any config for lazy loading. By simply using (Neo)vim's "autoload" directory (`:h autoload-functions`) there's no additional startuptime for your (n)vim instance. Ironically it's too light for lazy loading to matter,
+but all (Neo)vim packages/plugins should just do it when possible.
+
+*Lazy.nvim example:*
+
+```lua
+{
+	"jssteinberg/termcwd",
+	config = function()
+		-- Example key mappings
+		vim.keymap.set("n", "<leader><cr>", require("termcwd").sp(), { desc = "Terminal (CWD)" })
+		vim.keymap.set("n", "<leader>t<cr>", require("termcwd").tab(), { desc = "Terminal tab (CWD)" })
+		vim.keymap.set("n", "<leader>1", require("termcwd").sp(1, ""), { desc = "Terminal" })
+	end
+}
+```
+
+*With Lua you call vimscript functions with: `vim.fn` or `vim.call`. Vim function aliases are not available. ([More about Neovim Lua](//vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua)).*
 
 ## All functions
 
+*Vimscript:*
+
 - `termcwd#get()` toggles/focuses the main terminal for the window-local CWD.
-- `termcwd#splitGet()` or `termcwd#spGet()` toggles/focuses the terminal in a split.
+- `termcwd#splitGet()` (or vimscript alias `termcwd#spGet()`) toggles/focuses the terminal in a split.
 - `termcwd#tabGet()` toggles the terminal in a new tab.
 
 *All functions spawns a new terminal if it is doesn't exist for the particular reference.*
@@ -42,8 +65,6 @@ Optionally they take two arguments:
 
 ### Configure
 
-For consistency between Neovim and Vim – and what's generally a nice workflow – when a new terminal is spawned, insert mode is started (like the default of Vim). Then, normal mode when that terminal is opened the next time (like the default of both Neovim and Vim).
-
 To always move a split window to full width and top or bottom:
 
 ```vim
@@ -53,6 +74,12 @@ let g:termcwd_split_full_top = v:true
 let g:termcwd_split_full_bottom = v:true
 ```
 
+To only keep a single window per termcwd name and/or working directory:
+
+```vim
+let g:termcwd_single = v:true
+```
+
 To turn off closing of other windows with same terminal and toggling of terminal window:
 
 ```vim
@@ -60,6 +87,8 @@ let g:termcwd_minimal = v:true
 ```
 
 ### Neovim only config
+
+For consistency between Neovim and Vim – and what's generally a nice workflow – when a new terminal is spawned, insert mode is started (like the default of Vim). Then, normal mode when that terminal is opened the next time (like the default of both Neovim and Vim).
 
 To always start termcwd's returned terminal in insert mode (only for Neovim since Vim does not support starting insert mode by command in terminal buffer):
 
@@ -76,9 +105,12 @@ let g:termcwd_start_insert = v:false
 *How to configure above options with lua:*
 
 ```lua
+vim.g.termcwd_split_full_top = true
+vim.g.termcwd_split_full_bottom = true
+vim.g.termcwd_single = true
+vim.g.termcwd_minimal = true
 vim.g.termcwd_insert = true
 vim.g.termcwd_start_insert = false
-vim.g.termcwd_minimal = true
 ```
 
 <details>
@@ -106,13 +138,6 @@ nn <silent> <leader>C <cmd>exe "try\n tabclose\n catch\n qa\n endtry"<cr>
 ```
 
 </details>
-
-## Install
-
-Install "jssteinberg/termcwd" with any (Neo)vim package/plugin manager, or clone/download it to a "pack/\*/start" `runtimepath` folder (`:h packages`).
-
-Termcwd is already lazy loaded (defined only when used) so you don't have to do any config for lazy loading. By simply using (Neo)vim's "autoload" directory (`:h autoload-functions`) there's no additional startuptime for your (n)vim instance. Ironically it's too light for lazy loading to matter,
-but all (Neo)vim packages/plugins should just do it when possible.
 
 ## TODO
 

@@ -1,3 +1,32 @@
+function! termcwd#hide#inCurrentTab(isSplit) abort
+	if get(g:, "termcwd_single", v:false)
+		call termcwd#hide#allOtherBufwinnrInTab()
+	endif
+
+	return a:isSplit ? termcwd#hide#splitBuffers() : termcwd#hide#buffer()
+endfunction
+
+function! termcwd#hide#splitBuffers() abort
+	hide
+
+	try
+		hide
+		return v:true
+	catch
+		return termcwd#hide#buffer()
+	endtry
+endfunction
+
+function! termcwd#hide#buffer() abort
+	try
+		exe "b#"
+	catch
+		call termcwd#notify#noAltFile()
+	finally
+		return v:true
+	endtry
+endfunction
+
 " return number of windows closed
 function! termcwd#hide#allOtherBufwinnrInTab(bufnr = bufnr()) abort
 	let l:close_winnrs = []
