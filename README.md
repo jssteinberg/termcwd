@@ -1,6 +1,6 @@
 # termcwd
 
-Termcwd is a tiny package/plugin for Neovim and Vim providing a simple wrapper for the native terminal to quickly toggle/focus your (Neo)vim terminals.
+Termcwd is a tiny package/plugin for Neovim and Vim providing a simple wrapper for the native terminal to quickly toggle/focus your (Neo)vim terminals for the current working directory (CWD).
 
 Install Termcwd and define your preferred mappings (for Lua, see Install).
 
@@ -8,7 +8,7 @@ Install Termcwd and define your preferred mappings (for Lua, see Install).
 nnoremap <silent> <leader><cr> <cmd>call termcwd#splitGet()<cr>
 ```
 
-Now your leader key + Enter toggles/focuses your main terminal for the window-local current working directory (CWD).
+Now your leader key + Enter toggles/focuses your main terminal for the window-local CWD.
 
 When you open another CWD within (Neo)vim – for instance when opening another session – the same mapping will now toggle/focus the main terminal for **that** CWD. Then you return to your previous CWD and the same mapping will now toggle/focus that CWD's main terminal.
 
