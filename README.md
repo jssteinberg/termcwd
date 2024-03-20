@@ -147,6 +147,5 @@ nn <silent> <leader>C <cmd>exe "try\n tabclose\n catch\n qa\n endtry"<cr>
 
 ## TODO
 
-- fix: keep previously visited value (Ctrl-w w)
 - smarter/configurable height for split windows
-- hide terminal buffers from ls list option (so doesnt pollute alt file)?
+- option to hide terminal buffers from ls list option (so doesnt pollute alt file)?
