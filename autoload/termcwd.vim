@@ -8,23 +8,32 @@ function! termcwd#get(...) abort
 	let s:set = #{ prev: bufnr(), split: 0, fromTab: 0 }
 	call s:GetTerm(a:000)
 endfunction
+
 " open terminal in split
 function! termcwd#splitGet(...) abort
 	let s:set = #{ prev: bufnr(), split: 1, fromTab: 0 }
+
 	wincmd s
+
 	if get(g:, "termcwd_split_full_top", v:false) | wincmd K | en
 	if get(g:, "termcwd_split_full_bottom", v:false) | wincmd J | en
+	if get(g:, "termcwd_split_resize", 0)
+		exe "resize " . get(g:, "termcwd_height", 0)
+	endif
 	call s:GetTerm(a:000)
 endfunction
+
 " open terminal in tab
 function! termcwd#tabGet(...) abort
 	let s:set = #{ prev: bufnr(), split: 0, fromTab: tabpagenr() }
 	try | tabedit % | catch | endtry
 	call s:GetTerm(a:000)
 endfunction
+
 " aliases
 let termcwd#spGet = function("termcwd#splitGet")
 
+" get terminal
 function! s:GetTerm(args) abort
 	let l:term = get(a:args, 0, "main")
 	let l:cwd = get(a:args, 1, getcwd(0))

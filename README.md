@@ -1,15 +1,29 @@
 # termcwd
 
-Termcwd is a tiny package/plugin for Neovim and Vim providing a simple wrapper for the native terminal to quickly toggle/focus your (Neo)vim terminals for the current working directory (CWD).
+*A tiny package/plugin for Neovim's and Vim's terminal to quickly toggle/focus the terminal for the current working directory (CWD), plus some customization.*
 
-Install Termcwd and define your preferred mappings (for Lua, see Install).
+Do you sometimes browse your buffers for the (right) terminal? Termcwd provides functions to toggle/focus your current terminal relative to the working directory:
+
+- Open in current window, split, or tab (and you can map them to different keymaps).
+	- Set static height of termcwd split window.
+- Start in insert mode (Neovim only).
+- Toggle or not – terminal toggling and auto closing of windows with equal terminal buffer (can be turned off).
+
+## Window-local CWD terminal
+
+Define your preferred mappings:
+
+```lua
+-- Lua
+vim.keymap.set("n", "<leader><cr>", require("termcwd").split(), { desc = "Terminal (CWD)" })
+```
 
 ```vim
+" Vimscript
 nnoremap <silent> <leader><cr> <cmd>call termcwd#splitGet()<cr>
 ```
 
 Now your leader key + Enter toggles/focuses your main terminal for the window-local CWD.
-
 When you open another CWD within (Neo)vim – for instance when opening another session – the same mapping will now toggle/focus the main terminal for **that** CWD. Then you return to your previous CWD and the same mapping will now toggle/focus that CWD's main terminal.
 
 You can also add mappings for any secondary terminals and make it global for the (Neo)vim instance by passing these arguments (the first argument is the terminal name, second is the CWD which defaults to window-local CWD. Here it's empty for a global terminal, though terminal path equals window CWD where first opened):
@@ -17,8 +31,6 @@ You can also add mappings for any secondary terminals and make it global for the
 ```vim
 nnoremap <silent> <leader>1 <cmd>call termcwd#splitGet("global", "")<cr>
 ```
-
-*You can also turn off the toggling and auto close feature for full manual control by setting the global `termcwd_minimal` to `false`. See Configure below.*
 
 ## Install
 
@@ -41,7 +53,7 @@ but all (Neo)vim packages/plugins should just do it when possible.
 }
 ```
 
-## Functions for Vimscript and Lua
+## Functions
 
 Vimscript (see equal Lua functions below):
 
@@ -69,9 +81,9 @@ All functions:
 > [!NOTE]
 > Terminal names are connected to their CWDs. Meaning you can use the same terminal name for both your window-local CWD and your global terminal without them interfering.
 
-### Configure
+## Configuration
 
-To always move a split window to full width and top or bottom:
+**Always move a split termcwd window to full width top/bottom:**
 
 ```vim
 " termcwd is split to top and full width
@@ -80,44 +92,28 @@ let g:termcwd_split_full_top = v:true
 let g:termcwd_split_full_bottom = v:true
 ```
 
-To only keep a single window per termcwd name and/or working directory:
+**Set static height for split termcwd windows:**
 
 ```vim
-let g:termcwd_single = v:true
+let g:termcwd_height = 10
 ```
 
-To turn off closing of other windows with same terminal and toggling of terminal window:
+**Turn off toggling and auto closing** of other windows with equal terminal buffer:
 
 ```vim
 let g:termcwd_minimal = v:true
 ```
 
-### Neovim only config
+<details>
+<summary>Less relevant config</summary>
 
-For consistency between Neovim and Vim – and what's generally a nice workflow – when a new terminal is spawned, insert mode is started (like the default of Vim). Then, normal mode when that terminal is opened the next time (like the default of both Neovim and Vim).
-
-To always start termcwd's returned terminal in insert mode (only for Neovim since Vim does not support starting insert mode by command in terminal buffer):
-
-```vim
-let g:termcwd_insert = v:true
-```
-
-To never start it in insert mode (only for Neovim since Vim's terminal is only redrawn when in terminal/insert mode):
+**Ensure single window of each termcwd in tab:**
 
 ```vim
-let g:termcwd_start_insert = v:false
+let g:termcwd_single = v:true
 ```
 
-*How to configure above options with lua:*
-
-```lua
-vim.g.termcwd_split_full_top = true
-vim.g.termcwd_split_full_bottom = true
-vim.g.termcwd_single = true
-vim.g.termcwd_minimal = true
-vim.g.termcwd_insert = true
-vim.g.termcwd_start_insert = false
-```
+</details>
 
 <details>
 <summary>Related convenient keymaps</summary>
@@ -145,7 +141,33 @@ nn <silent> <leader>C <cmd>exe "try\n tabclose\n catch\n qa\n endtry"<cr>
 
 </details>
 
+### Neovim only config
+
+For consistency between Neovim and Vim – and what's generally a nice workflow – when a new terminal is spawned, insert mode is started (like the default of Vim). Then, normal mode after the first time that terminal is opened.
+
+**Always start in insert mode** – for termcwd's returned terminal (only for Neovim since Vim does not support starting insert mode by command in terminal buffer):
+
+```vim
+let g:termcwd_insert = v:true
+```
+
+**Never start in insert mode** (only for Neovim since Vim's terminal is only redrawn when in terminal/insert mode):
+
+```vim
+let g:termcwd_start_insert = v:false
+```
+
+*How to configure above options with lua:*
+
+```lua
+vim.g.termcwd_split_full_top = true
+vim.g.termcwd_split_full_bottom = true
+vim.g.termcwd_single = true
+vim.g.termcwd_minimal = true
+vim.g.termcwd_insert = true
+vim.g.termcwd_start_insert = false
+```
+
 ## TODO
 
-- smarter/configurable height for split windows
 - option to hide terminal buffers from ls list option (so doesnt pollute alt file)?
