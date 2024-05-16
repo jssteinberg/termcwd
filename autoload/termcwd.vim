@@ -17,7 +17,7 @@ function! termcwd#splitGet(...) abort
 
 	if get(g:, "termcwd_split_full_top", v:false) | wincmd K | en
 	if get(g:, "termcwd_split_full_bottom", v:false) | wincmd J | en
-	if get(g:, "termcwd_split_resize", 0)
+	if get(g:, "termcwd_height", 0)
 		exe "resize " . get(g:, "termcwd_height", 0)
 	endif
 	call s:GetTerm(a:000)
