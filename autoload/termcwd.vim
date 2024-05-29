@@ -25,7 +25,8 @@ function! termcwd#splitGet(...) abort
 	if get(g:, "termcwd_split_full_top", v:false)
 		wincmd K
 	elseif get(g:, "termcwd_split_full_bottom", v:false)
-		wincmd J | en
+		wincmd J
+	endif
 
 	call s:GetTerm(a:000)
 
