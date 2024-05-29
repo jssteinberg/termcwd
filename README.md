@@ -170,4 +170,5 @@ vim.g.termcwd_start_insert = false
 
 ## TODO
 
+- option to use terminal toggle keymap to exit terminal insert mode as well
 - option to hide terminal buffers from ls list option (so doesnt pollute alt file)?
