@@ -3,10 +3,17 @@
 " Version: 0.1.0
 " Repository: //github.com/jssteinberg/termcwd.vim
 
+let s:existed_terminal_focused = v:true
+
 " open terminal
 function! termcwd#get(...) abort
 	let s:set = #{ prev: bufnr(), split: 0, fromTab: 0 }
+
 	call s:GetTerm(a:000)
+
+	if s:existed_terminal_focused && has("nvim") && get(g:, "termcwd_insert", v:false)
+		startinsert
+	endif
 endfunction
 
 " open terminal in split
@@ -15,19 +22,31 @@ function! termcwd#splitGet(...) abort
 
 	wincmd s
 
-	if get(g:, "termcwd_split_full_top", v:false) | wincmd K | en
-	if get(g:, "termcwd_split_full_bottom", v:false) | wincmd J | en
-	if get(g:, "termcwd_height", 0)
+	if get(g:, "termcwd_split_full_top", v:false)
+		wincmd K
+	elseif get(g:, "termcwd_split_full_bottom", v:false)
+		wincmd J | en
+
+	call s:GetTerm(a:000)
+
+	if get(g:, "termcwd_height", 0) && get(s:, "existed_terminal_focused", v:true)
 		exe "resize " . get(g:, "termcwd_height", 0)
 	endif
-	call s:GetTerm(a:000)
+	if s:existed_terminal_focused && has("nvim") && get(g:, "termcwd_insert", v:false)
+		startinsert
+	endif
 endfunction
 
 " open terminal in tab
 function! termcwd#tabGet(...) abort
 	let s:set = #{ prev: bufnr(), split: 0, fromTab: tabpagenr() }
+
 	try | tabedit % | catch | endtry
 	call s:GetTerm(a:000)
+
+	if s:existed_terminal_focused && has("nvim") && get(g:, "termcwd_insert", v:false)
+		startinsert
+	endif
 endfunction
 
 " aliases
@@ -39,7 +58,6 @@ function! s:GetTerm(args) abort
 	let l:cwd = get(a:args, 1, getcwd(0))
 	let l:key = string(l:term) . "_" . l:cwd
 	let l:existed = v:false
-	let l:existed_terminal_focused = get(g:, "termcwd_minimal", v:false)
 
 	try
 		" try if terminal exists
@@ -63,10 +81,6 @@ function! s:GetTerm(args) abort
 	endtry
 
 	if l:existed && !get(g:, "termcwd_minimal", v:false)
-		let l:existed_terminal_focused = termcwd#exists#toggleTermcwd(g:termcwd_bufnrs[l:key], s:set)
-	endif
-
-	if l:existed_terminal_focused && has("nvim") && get(g:, "termcwd_insert", v:false)
-		startinsert
+		let s:existed_terminal_focused = termcwd#exists#toggleTermcwd(g:termcwd_bufnrs[l:key], s:set)
 	endif
 endfunction
