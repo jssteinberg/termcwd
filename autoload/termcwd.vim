@@ -1,6 +1,6 @@
 " Author: jssteinberg
 " License: MIT
-" Version: 0.1.0
+" Version: 0.1.1
 " Repository: //github.com/jssteinberg/termcwd.vim
 
 let g:termcwd_focused = v:true
@@ -30,11 +30,11 @@ function! termcwd#splitGet(...) abort
 
 	call s:GetTerm(a:000)
 
-	if get(g:, "termcwd_height", 0) && get(s:, "existed_terminal_focused", v:true)
-		exe "resize " . get(g:, "termcwd_height", 0)
+	if get(g:, "termcwd_height", 0) && g:termcwd_focused
+		exe "resize " . g:termcwd_height
 	endif
 
-	if g:termcwd_focused && has("nvim") && get(g:, "termcwd_insert", v:false)
+	if has("nvim") && get(g:, "termcwd_insert", v:false) && g:termcwd_focused
 		startinsert
 	endif
 endfunction
@@ -60,12 +60,14 @@ function! s:GetTerm(args) abort
 	let l:term = get(a:args, 0, "main")
 	let l:cwd = get(a:args, 1, getcwd(0))
 	let l:key = string(l:term) . "_" . l:cwd
-	let l:existed = v:false
 
 	try
 		" try if terminal exists
 		exe "buffer " . g:termcwd_bufnrs[l:key]
-		let l:existed = v:true
+
+		if !get(g:, "termcwd_minimal", v:false)
+			let g:termcwd_focused = termcwd#exists#toggleTermcwd(g:termcwd_bufnrs[l:key], s:set)
+		endif
 	catch
 		" Create terminal
 		if !has("nvim")
@@ -79,13 +81,10 @@ function! s:GetTerm(args) abort
 			endif
 		endif
 
+		let g:termcwd_focused = v:true
 		" Create termcwd store if not exists
 		let g:termcwd_bufnrs = get(g:, "termcwd_bufnrs", {})
 		" Store link terminal key to buffer number
 		let g:termcwd_bufnrs[l:key] = bufnr()
 	endtry
-
-	if l:existed && !get(g:, "termcwd_minimal", v:false)
-		let g:termcwd_focused = termcwd#exists#toggleTermcwd(g:termcwd_bufnrs[l:key], s:set)
-	endif
 endfunction
