@@ -1,17 +1,13 @@
 " Author: jssteinberg
 " License: MIT
-" Version: 0.1.1
+" Version: 0.1.2
 " Repository: //github.com/jssteinberg/termcwd.vim
-
-let g:termcwd_focused = v:true
 
 " open terminal
 function! termcwd#get(...) abort
 	let s:set = #{ prev: bufnr(), split: 0, fromTab: 0 }
 
-	call s:GetTerm(a:000)
-
-	if g:termcwd_focused && has("nvim") && get(g:, "termcwd_insert", v:false)
+	if s:GetTerm(a:000) && has("nvim") && get(g:, "termcwd_insert", v:false)
 		startinsert
 	endif
 endfunction
@@ -28,13 +24,13 @@ function! termcwd#splitGet(...) abort
 		wincmd J
 	endif
 
-	call s:GetTerm(a:000)
+	let l:focused = s:GetTerm(a:000)
 
-	if get(g:, "termcwd_height", 0) && g:termcwd_focused
+	if get(g:, "termcwd_height", 0) && l:focused
 		exe "resize " . g:termcwd_height
 	endif
 
-	if has("nvim") && get(g:, "termcwd_insert", v:false) && g:termcwd_focused
+	if has("nvim") && get(g:, "termcwd_insert", v:false) && l:focused
 		startinsert
 	endif
 endfunction
@@ -45,9 +41,7 @@ function! termcwd#tabGet(...) abort
 
 	try | tabedit % | catch | endtry
 
-	call s:GetTerm(a:000)
-
-	if g:termcwd_focused && has("nvim") && get(g:, "termcwd_insert", v:false)
+	if s:GetTerm(a:000) && has("nvim") && get(g:, "termcwd_insert", v:false)
 		startinsert
 	endif
 endfunction
@@ -56,6 +50,7 @@ endfunction
 let termcwd#spGet = function("termcwd#splitGet")
 
 " get terminal
+" returns true if terminal is open and focused
 function! s:GetTerm(args) abort
 	let l:term = get(a:args, 0, "main")
 	let l:cwd = get(a:args, 1, getcwd(0))
@@ -65,9 +60,9 @@ function! s:GetTerm(args) abort
 		" try if terminal exists
 		exe "buffer " . g:termcwd_bufnrs[l:key]
 
-		if !get(g:, "termcwd_minimal", v:false)
-			let g:termcwd_focused = termcwd#exists#toggleTermcwd(g:termcwd_bufnrs[l:key], s:set)
-		endif
+		return !get(g:, "termcwd_minimal", v:false)
+					\ ? termcwd#exists#toggleTermcwd(g:termcwd_bufnrs[l:key], s:set)
+					\ : v:true
 	catch
 		" Create terminal
 		if !has("nvim")
@@ -81,10 +76,11 @@ function! s:GetTerm(args) abort
 			endif
 		endif
 
-		let g:termcwd_focused = v:true
 		" Create termcwd store if not exists
 		let g:termcwd_bufnrs = get(g:, "termcwd_bufnrs", {})
 		" Store link terminal key to buffer number
 		let g:termcwd_bufnrs[l:key] = bufnr()
+
+		return v:true
 	endtry
 endfunction
