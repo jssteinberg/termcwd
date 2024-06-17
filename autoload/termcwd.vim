@@ -3,7 +3,7 @@
 " Version: 0.1.0
 " Repository: //github.com/jssteinberg/termcwd.vim
 
-let s:existed_terminal_focused = v:true
+let g:termcwd_focused = v:true
 
 " open terminal
 function! termcwd#get(...) abort
@@ -11,7 +11,7 @@ function! termcwd#get(...) abort
 
 	call s:GetTerm(a:000)
 
-	if s:existed_terminal_focused && has("nvim") && get(g:, "termcwd_insert", v:false)
+	if g:termcwd_focused && has("nvim") && get(g:, "termcwd_insert", v:false)
 		startinsert
 	endif
 endfunction
@@ -33,7 +33,8 @@ function! termcwd#splitGet(...) abort
 	if get(g:, "termcwd_height", 0) && get(s:, "existed_terminal_focused", v:true)
 		exe "resize " . get(g:, "termcwd_height", 0)
 	endif
-	if s:existed_terminal_focused && has("nvim") && get(g:, "termcwd_insert", v:false)
+
+	if g:termcwd_focused && has("nvim") && get(g:, "termcwd_insert", v:false)
 		startinsert
 	endif
 endfunction
@@ -43,9 +44,10 @@ function! termcwd#tabGet(...) abort
 	let s:set = #{ prev: bufnr(), split: 0, fromTab: tabpagenr() }
 
 	try | tabedit % | catch | endtry
+
 	call s:GetTerm(a:000)
 
-	if s:existed_terminal_focused && has("nvim") && get(g:, "termcwd_insert", v:false)
+	if g:termcwd_focused && has("nvim") && get(g:, "termcwd_insert", v:false)
 		startinsert
 	endif
 endfunction
@@ -65,8 +67,10 @@ function! s:GetTerm(args) abort
 		exe "buffer " . g:termcwd_bufnrs[l:key]
 		let l:existed = v:true
 	catch
-		" or create terminal
-		if !has("nvim") | terminal ++curwin
+		" Create terminal
+		if !has("nvim")
+			" For Vim, creating terminal in current window must be specified
+			terminal ++curwin
 		else
 			terminal
 
@@ -82,6 +86,6 @@ function! s:GetTerm(args) abort
 	endtry
 
 	if l:existed && !get(g:, "termcwd_minimal", v:false)
-		let s:existed_terminal_focused = termcwd#exists#toggleTermcwd(g:termcwd_bufnrs[l:key], s:set)
+		let g:termcwd_focused = termcwd#exists#toggleTermcwd(g:termcwd_bufnrs[l:key], s:set)
 	endif
 endfunction
