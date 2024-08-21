@@ -26,7 +26,7 @@ function! termcwd#splitGet(...) abort
 
 	let l:focused = s:GetTerm(a:000)
 
-	if get(g:, "termcwd_height", 0) && l:focused
+	if s:IsSplit() && get(g:, "termcwd_height", 0) && l:focused
 		exe "resize " . g:termcwd_height
 	endif
 
@@ -48,6 +48,11 @@ endfunction
 
 " aliases
 let termcwd#spGet = function("termcwd#splitGet")
+
+" utils
+function! s:IsSplit() abort
+	return get(g:, "termcwd_new_split", v:false)
+endfunction
 
 " get terminal
 " returns true if terminal is open and focused
