@@ -59,7 +59,7 @@ endfunction
 function! s:GetTerm(args) abort
 	let l:term = get(a:args, 0, "main")
 	let l:cwd = get(a:args, 1, getcwd(0))
-	let l:key = string(l:term) . "_" . l:cwd
+	let l:key = type(l:term) != v:t_string ? string(l:term) : l:term . "_" . l:cwd
 
 	try
 		" try if terminal exists
