@@ -86,6 +86,8 @@ function! s:GetTerm(args) abort
 		" Store link terminal key to buffer number
 		let g:termcwd_bufnrs[l:key] = bufnr()
 
+		let g:termcwd_new_split = s:set.split ? v:true : v:false
+
 		return v:true
 	endtry
 endfunction
