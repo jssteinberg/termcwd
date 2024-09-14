@@ -27,7 +27,6 @@ function! termcwd#get#split(args) abort
 		" - create win of dimensions, tryopen buffer
 		" - create win of dimensions, open buffer
 		return v:false
-		"return s:get_split_term(l:key)
 	endif
 endfunction
 
@@ -37,45 +36,4 @@ function! s:current_is_term(key) abort
 	catch
 		return v:false
 	endtry
-endfunction
-
-function! s:get_split_term(key) abort
-	wincmd s
-
-	if get(g:, "termcwd_split_full_top", v:false)
-		wincmd K
-	elseif get(g:, "termcwd_split_full_bottom", v:false)
-		wincmd J
-	endif
-
-	if get(g:, "termcwd_height", 0)
-		exe "resize " . g:termcwd_height
-	endif
-
-	try
-		" try if terminal exists
-		exe "buffer " . g:termcwd_bufnrs[a:key]
-
-	catch
-		" Create terminal
-		if !has("nvim")
-			terminal ++curwin
-		else
-			terminal
-			if get(g:, "termcwd_start_insert", v:true)
-				startinsert
-			endif
-		endif
-
-		" Create termcwd store if not exists
-		let g:termcwd_bufnrs = get(g:, "termcwd_bufnrs", {})
-		" Store link terminal key to buffer number
-		let g:termcwd_bufnrs[a:key] = bufnr()
-	endtry
-
-	if has("nvim") && get(g:, "termcwd_insert", v:false)
-		startinsert
-	endif
-
-	return v:true
 endfunction
