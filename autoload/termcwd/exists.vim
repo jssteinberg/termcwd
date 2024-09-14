@@ -13,10 +13,10 @@ function! termcwd#exists#toggleTermcwd(t_bufnr, get) abort
 
 	if get(g:, "termcwd_split_full_bottom", v:false)
 		" Keep terminal open, focus and keep only last window occurrence
-		let g:termcwd_new_split = termcwd#use#lastWindowOccurence(a:t_bufnr) ? v:false : v:true
+		call termcwd#use#lastWindowOccurence(a:t_bufnr)
 	else
 		" Keep terminal open, focus and keep only first window occurrence
-		let g:termcwd_new_split = termcwd#use#firstWindowOccurence(a:t_bufnr) ? v:false : v:true
+		call termcwd#use#firstWindowOccurence(a:t_bufnr)
 	endif
 
 	if get(g:, "termcwd_single", v:false)

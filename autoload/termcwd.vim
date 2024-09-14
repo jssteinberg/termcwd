@@ -30,7 +30,7 @@ function! termcwd#splitGet(...) abort
 
 	let l:focused = s:GetTerm(a:000)
 
-	if s:IsSplit() && get(g:, "termcwd_height", 0) && l:focused
+	if get(g:, "termcwd_height", 0) && !get(g:, "termcwd_minimal", v:false) && l:focused
 		exe "resize " . g:termcwd_height
 	endif
 
@@ -52,11 +52,6 @@ endfunction
 
 " aliases
 let termcwd#spGet = function("termcwd#splitGet")
-
-" utils
-function! s:IsSplit() abort
-	return get(g:, "termcwd_new_split", v:false)
-endfunction
 
 " get terminal
 " returns true if terminal is open and focused
@@ -89,8 +84,6 @@ function! s:GetTerm(args) abort
 		let g:termcwd_bufnrs = get(g:, "termcwd_bufnrs", {})
 		" Store link terminal key to buffer number
 		let g:termcwd_bufnrs[l:key] = bufnr()
-
-		let g:termcwd_new_split = s:set.split ? v:true : v:false
 
 		return v:true
 	endtry
