@@ -16,6 +16,10 @@ endfunction
 function! termcwd#splitGet(...) abort
 	let s:set = #{ prev: bufnr(), split: 1, fromTab: 0 }
 
+	if get(g:, "termcwd_height", 0) && !get(g:, "termcwd_minimal", v:false) && termcwd#get#split(a:000)
+		return
+	endif
+
 	wincmd s
 
 	if get(g:, "termcwd_split_full_top", v:false)
