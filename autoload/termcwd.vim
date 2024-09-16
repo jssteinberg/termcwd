@@ -16,7 +16,7 @@ endfunction
 function! termcwd#splitGet(...) abort
 	let s:set = #{ prev: bufnr(), split: 1, fromTab: 0 }
 
-	if get(g:, "termcwd_height", 0) && !get(g:, "termcwd_minimal", v:false) && termcwd#get#split(a:000)
+	if get(g:, "termcwd_height", 0) && !get(g:, "termcwd_minimal", v:false) && termcwd#toggle#split(a:000)
 		return
 	endif
 
@@ -58,7 +58,7 @@ let termcwd#spGet = function("termcwd#splitGet")
 function! s:GetTerm(args) abort
 	let l:term = get(a:args, 0, "main")
 	let l:cwd = get(a:args, 1, getcwd(0))
-	let l:key = type(l:term) != v:t_string ? string(l:term) : l:term . "_" . l:cwd
+	let l:key = termcwd#get#key(l:term, l:cwd)
 
 	try
 		" try if terminal exists
