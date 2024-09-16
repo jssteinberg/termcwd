@@ -83,6 +83,8 @@ All functions:
 
 ## Configuration
 
+*These options can also be configured in Neovim with [Lua's syntax, see below](#lua-example).*
+
 **Always move a split termcwd window to full width top/bottom:**
 
 ```vim
@@ -157,7 +159,7 @@ let g:termcwd_insert = v:true
 let g:termcwd_start_insert = v:false
 ```
 
-*How to configure above options with lua:*
+### Lua example
 
 ```lua
 vim.g.termcwd_split_full_top = true
