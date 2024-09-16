@@ -24,8 +24,7 @@ function! termcwd#toggle#split(args) abort
 			endif
 		catch | endtry
 
-		" - create win of dimensions, tryopen buffer
-		" - create win of dimensions, open buffer
+		" - create win of dimensions, try open buffer or create new term
 		" (handled by caller)
 		return v:false
 	endif
