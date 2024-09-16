@@ -1,6 +1,6 @@
 " Author: jssteinberg
 " License: MIT
-" Version: 0.1.2
+" Version: 0.1.3
 " Repository: //github.com/jssteinberg/termcwd.vim
 
 " open terminal
@@ -18,6 +18,8 @@ function! termcwd#splitGet(...) abort
 
 	if get(g:, "termcwd_height", 0) && !get(g:, "termcwd_minimal", v:false) && termcwd#toggle#split(a:000)
 		return
+	else
+		let l:one_off_minimal = v:true
 	endif
 
 	wincmd s
@@ -28,7 +30,7 @@ function! termcwd#splitGet(...) abort
 		wincmd J
 	endif
 
-	let l:focused = s:GetTerm(a:000)
+	let l:focused = s:GetTerm(a:000, l:one_off_minimal)
 
 	if get(g:, "termcwd_height", 0) && !get(g:, "termcwd_minimal", v:false) && l:focused
 		exe "resize " . g:termcwd_height
@@ -55,7 +57,7 @@ let termcwd#spGet = function("termcwd#splitGet")
 
 " get terminal
 " returns true if terminal is open and focused
-function! s:GetTerm(args) abort
+function! s:GetTerm(args, minimal = get(g:, "termcwd_minimal", v:false)) abort
 	let l:term = get(a:args, 0, "main")
 	let l:cwd = get(a:args, 1, getcwd(0))
 	let l:key = termcwd#get#key(l:term, l:cwd)
@@ -64,7 +66,7 @@ function! s:GetTerm(args) abort
 		" try if terminal exists
 		exe "buffer " . g:termcwd_bufnrs[l:key]
 
-		return !get(g:, "termcwd_minimal", v:false)
+		return !a:minimal
 					\ ? termcwd#exists#toggleTermcwd(g:termcwd_bufnrs[l:key], s:set)
 					\ : v:true
 	catch
