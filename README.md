@@ -92,7 +92,7 @@ let g:termcwd_split_full_top = v:true
 let g:termcwd_split_full_bottom = v:true
 ```
 
-**Set static height for split termcwd windows:**
+**Set static height for split termcwd windows** (does not work with `g:termcwd_minimal` – see below):
 
 ```vim
 let g:termcwd_height = 10

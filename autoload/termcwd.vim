@@ -1,6 +1,6 @@
 " Author: jssteinberg
 " License: MIT
-" Version: 0.1.2
+" Version: 0.1.3
 " Repository: //github.com/jssteinberg/termcwd.vim
 
 " open terminal
@@ -16,6 +16,12 @@ endfunction
 function! termcwd#splitGet(...) abort
 	let s:set = #{ prev: bufnr(), split: 1, fromTab: 0 }
 
+	if get(g:, "termcwd_height", 0) && !get(g:, "termcwd_minimal", v:false) && termcwd#toggle#split(a:000)
+		return
+	else
+		let l:one_off_minimal = v:true
+	endif
+
 	wincmd s
 
 	if get(g:, "termcwd_split_full_top", v:false)
@@ -24,9 +30,9 @@ function! termcwd#splitGet(...) abort
 		wincmd J
 	endif
 
-	let l:focused = s:GetTerm(a:000)
+	let l:focused = s:GetTerm(a:000, l:one_off_minimal)
 
-	if s:IsSplit() && get(g:, "termcwd_height", 0) && l:focused
+	if get(g:, "termcwd_height", 0) && !get(g:, "termcwd_minimal", v:false) && l:focused
 		exe "resize " . g:termcwd_height
 	endif
 
@@ -49,23 +55,18 @@ endfunction
 " aliases
 let termcwd#spGet = function("termcwd#splitGet")
 
-" utils
-function! s:IsSplit() abort
-	return get(g:, "termcwd_new_split", v:false)
-endfunction
-
 " get terminal
 " returns true if terminal is open and focused
-function! s:GetTerm(args) abort
+function! s:GetTerm(args, minimal = get(g:, "termcwd_minimal", v:false)) abort
 	let l:term = get(a:args, 0, "main")
 	let l:cwd = get(a:args, 1, getcwd(0))
-	let l:key = type(l:term) != v:t_string ? string(l:term) : l:term . "_" . l:cwd
+	let l:key = termcwd#get#key(l:term, l:cwd)
 
 	try
 		" try if terminal exists
 		exe "buffer " . g:termcwd_bufnrs[l:key]
 
-		return !get(g:, "termcwd_minimal", v:false)
+		return !a:minimal
 					\ ? termcwd#exists#toggleTermcwd(g:termcwd_bufnrs[l:key], s:set)
 					\ : v:true
 	catch
@@ -85,8 +86,6 @@ function! s:GetTerm(args) abort
 		let g:termcwd_bufnrs = get(g:, "termcwd_bufnrs", {})
 		" Store link terminal key to buffer number
 		let g:termcwd_bufnrs[l:key] = bufnr()
-
-		let g:termcwd_new_split = s:set.split ? v:true : v:false
 
 		return v:true
 	endtry
