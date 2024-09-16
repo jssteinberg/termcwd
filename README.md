@@ -95,7 +95,7 @@ let g:termcwd_split_full_bottom = v:true
 **Set static height for split termcwd windows** (does not work with `g:termcwd_minimal` – see below):
 
 ```vim
-let g:termcwd_height = 10
+let g:termcwd_height = 20
 ```
 
 **Turn off toggling and auto closing** of other windows with equal terminal buffer:
