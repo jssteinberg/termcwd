@@ -172,5 +172,6 @@ vim.g.termcwd_start_insert = false
 
 ## TODO
 
+- update fixed height on window resize
 - option to use terminal toggle keymap to exit terminal insert mode as well
 - option to hide terminal buffers from ls list option (so doesnt pollute alt file)?
