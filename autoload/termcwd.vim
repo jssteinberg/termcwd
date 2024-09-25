@@ -34,6 +34,8 @@ function! termcwd#splitGet(...) abort
 
 	if get(g:, "termcwd_height", 0) && !get(g:, "termcwd_minimal", v:false) && l:focused
 		exe "resize " . g:termcwd_height
+		" set local winfixheight
+		setlocal winfixheight
 	endif
 
 	if has("nvim") && get(g:, "termcwd_insert", v:false) && l:focused
