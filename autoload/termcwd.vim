@@ -1,6 +1,6 @@
 " Author: jssteinberg
 " License: MIT
-" Version: 0.1.3
+" Version: 0.1.4
 " Repository: //github.com/jssteinberg/termcwd.vim
 
 " open terminal
@@ -33,9 +33,8 @@ function! termcwd#splitGet(...) abort
 	let l:focused = s:GetTerm(a:000, l:one_off_minimal)
 
 	if get(g:, "termcwd_height", 0) && !get(g:, "termcwd_minimal", v:false) && l:focused
-		exe "resize " . g:termcwd_height
-		" set local winfixheight
 		setlocal winfixheight
+		exe "resize " . g:termcwd_height
 	endif
 
 	if has("nvim") && get(g:, "termcwd_insert", v:false) && l:focused
@@ -82,6 +81,10 @@ function! s:GetTerm(args, minimal = get(g:, "termcwd_minimal", v:false)) abort
 			if get(g:, "termcwd_start_insert", v:true)
 				startinsert
 			endif
+		endif
+
+		if exists("*TermcwdCallback")
+			return TermcwdCallback()
 		endif
 
 		" Create termcwd store if not exists

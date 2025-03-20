@@ -85,6 +85,14 @@ All functions:
 
 *These options can also be configured in Neovim with [Lua's syntax, see below](#lua-example).*
 
+**Callback function when creating a new termcwd terminal to set options:**
+
+```vim
+function! TermcwdCallback() abort
+	setlocal nonumber
+endfunction
+```
+
 **Always move a split termcwd window to full width top/bottom:**
 
 ```vim
