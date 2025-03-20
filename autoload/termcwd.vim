@@ -84,6 +84,10 @@ function! s:GetTerm(args, minimal = get(g:, "termcwd_minimal", v:false)) abort
 			endif
 		endif
 
+		if exists("*TermcwdCallback")
+			return TermcwdCallback()
+		endif
+
 		" Create termcwd store if not exists
 		let g:termcwd_bufnrs = get(g:, "termcwd_bufnrs", {})
 		" Store link terminal key to buffer number
