@@ -1,6 +1,6 @@
 " Author: jssteinberg
 " License: MIT
-" Version: 0.1.4
+" Version: 0.1.5
 " Repository: //github.com/jssteinberg/termcwd.vim
 
 " open terminal
@@ -84,7 +84,7 @@ function! s:GetTerm(args, minimal = get(g:, "termcwd_minimal", v:false)) abort
 		endif
 
 		if exists("*TermcwdCallback")
-			return TermcwdCallback()
+			call TermcwdCallback()
 		endif
 
 		" Create termcwd store if not exists
