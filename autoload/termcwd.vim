@@ -1,6 +1,6 @@
 " Author: jssteinberg
 " License: MIT
-" Version: 0.1.3
+" Version: 0.1.4
 " Repository: //github.com/jssteinberg/termcwd.vim
 
 " open terminal
