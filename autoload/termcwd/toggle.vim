@@ -11,7 +11,7 @@ function! termcwd#toggle#split(args) abort
 		try
 			hide
 		catch
-			termcwd#hide#buffer()
+			call termcwd#hide#buffer()
 		finally
 			return v:true
 		endtry
