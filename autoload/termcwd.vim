@@ -16,7 +16,8 @@ endfunction
 function! termcwd#splitGet(...) abort
 	let s:set = #{ prev: bufnr(), split: 1, fromTab: 0 }
 
-	if get(g:, "termcwd_height", 0) && !get(g:, "termcwd_minimal", v:false) && termcwd#toggle#split(a:000)
+	" Check toggle first, regardless of height setting
+	if !get(g:, "termcwd_minimal", v:false) && termcwd#toggle#split(a:000)
 		return
 	else
 		let l:one_off_minimal = v:true
