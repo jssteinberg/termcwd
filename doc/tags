@@ -17,6 +17,7 @@ termcwd-contents	termcwd.txt	/*termcwd-contents*
 termcwd-examples	termcwd.txt	/*termcwd-examples*
 termcwd-introduction	termcwd.txt	/*termcwd-introduction*
 termcwd-lua	termcwd.txt	/*termcwd-lua*
+termcwd-tips	termcwd.txt	/*termcwd-tips*
 termcwd.lua.get()	termcwd.txt	/*termcwd.lua.get()*
 termcwd.lua.split()	termcwd.txt	/*termcwd.lua.split()*
 termcwd.lua.tab()	termcwd.txt	/*termcwd.lua.tab()*

@@ -13,6 +13,7 @@ CONTENTS                                                    *termcwd-contents*
     4. Lua API ................................. |termcwd-lua|
     5. Callback ................................ |termcwd-callback|
     6. Examples ................................ |termcwd-examples|
+    7. Tips .................................... |termcwd-tips|
 
 ==============================================================================
 1. INTRODUCTION                                         *termcwd-introduction*
@@ -202,6 +203,29 @@ Configuration example: ~
     let g:termcwd_height = 15
     let g:termcwd_split_full_bottom = v:true
     let g:termcwd_insert = v:true
+<
+==============================================================================
+7. TIPS                                                         *termcwd-tips*
+
+Escape terminal mode ~
+
+Map a key sequence to exit terminal insert mode:
+>vim
+    " Neovim
+    tnoremap jk <C-\><C-n>
+
+    " Vim
+    tnoremap jk <C-w>N
+<
+Hide window keymaps ~
+
+Useful keymaps for hiding terminal windows:
+>vim
+    " Hide current window (or quit if last window)
+    nnoremap <leader>c <Cmd>exe "try\n hide\n catch\n q\n endtry"<CR>
+
+    " Close tab (or quit all if last tab)
+    nnoremap <leader>C <Cmd>exe "try\n tabclose\n catch\n qa\n endtry"<CR>
 <
 ==============================================================================
  vim:tw=78:ts=8:ft=help:norl:
