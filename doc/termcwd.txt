@@ -1,0 +1,207 @@
+*termcwd.txt*  Toggle terminals per working directory
+
+Author:  jssteinberg
+License: MIT
+Repository: https://github.com/jssteinberg/termcwd.vim
+
+==============================================================================
+CONTENTS                                                    *termcwd-contents*
+
+    1. Introduction ............................ |termcwd-introduction|
+    2. Commands ................................ |termcwd-commands|
+    3. Configuration ........................... |termcwd-configuration|
+    4. Lua API ................................. |termcwd-lua|
+    5. Callback ................................ |termcwd-callback|
+    6. Examples ................................ |termcwd-examples|
+
+==============================================================================
+1. INTRODUCTION                                         *termcwd-introduction*
+
+termcwd is a Vim/Neovim plugin for quickly toggling and focusing terminal
+buffers relative to the current working directory. It allows you to have
+separate terminals per directory and toggle them with keymaps.
+
+Works with both Vim (8.1+) and Neovim.
+
+Getting started ~
+
+Add a keymap to toggle a terminal in a split:
+>vim
+    nnoremap <leader>t <Cmd>call termcwd#splitGet()<CR>
+<
+Or in Neovim with Lua:
+>lua
+    vim.keymap.set("n", "<leader>t", require("termcwd").split())
+<
+Press `<leader>t` to open a terminal. Press it again to hide it. The terminal
+persists per working directory, so switching projects gives you a fresh
+terminal.
+
+How it works ~
+
+Terminals are stored and looked up using a key composed of:
+>
+    terminal_name + "_" + cwd
+<
+This means you can have multiple named terminals per directory, or share a
+terminal across directories by using an empty CWD.
+
+==============================================================================
+2. COMMANDS                                                 *termcwd-commands*
+
+                                                               *termcwd#get()*
+termcwd#get([{terminal}[, {cwd}]])
+                        Toggle a terminal in the current window.
+
+                        {terminal}  Terminal name (default: "main")
+                        {cwd}       Working directory (default: getcwd(0))
+
+                        If the terminal doesn't exist, creates a new one.
+                        If the terminal exists and is current, hides it.
+                        If the terminal exists elsewhere, focuses it.
+
+                                                          *termcwd#splitGet()*
+termcwd#splitGet([{terminal}[, {cwd}]])
+                        Toggle a terminal in a horizontal split.
+
+                        Same parameters as |termcwd#get()|.
+
+                        Respects |g:termcwd_height| for fixed split height.
+                        Also available as `termcwd#spGet()`.
+
+                                                            *termcwd#tabGet()*
+termcwd#tabGet([{terminal}[, {cwd}]])
+                        Toggle a terminal in a new tab.
+
+                        Same parameters as |termcwd#get()|.
+
+==============================================================================
+3. CONFIGURATION                                       *termcwd-configuration*
+
+                                                          *g:termcwd_minimal*
+g:termcwd_minimal       When |v:true|, disables all toggle and auto-close
+                        behavior. Terminals will only be created/switched to,
+                        never hidden automatically.
+                        Default: |v:false|
+
+                                                           *g:termcwd_height*
+g:termcwd_height        Fixed height for split terminals. When set to a
+                        positive number, |termcwd#splitGet()| will resize the
+                        terminal window to this height and set 'winfixheight'.
+                        Default: 0 (no fixed height)
+
+                                                   *g:termcwd_split_full_top*
+g:termcwd_split_full_top
+                        When |v:true|, split terminals span the full width
+                        at the top of the screen (uses |CTRL-W_K|).
+                        Default: |v:false|
+
+                                                *g:termcwd_split_full_bottom*
+g:termcwd_split_full_bottom
+                        When |v:true|, split terminals span the full width
+                        at the bottom of the screen (uses |CTRL-W_J|).
+                        Default: |v:false|
+
+                                                           *g:termcwd_single*
+g:termcwd_single        When |v:true|, ensures only one termcwd terminal for a
+                        working directory per tab.
+                        Default: |v:false|
+
+                                                           *g:termcwd_insert*
+g:termcwd_insert        (Neovim only) When |v:true|, automatically enter
+                        insert mode when focusing an existing terminal.
+                        Default: |v:false|
+
+                                                     *g:termcwd_start_insert*
+g:termcwd_start_insert  (Neovim only) When |v:true|, automatically enter
+                        insert mode when creating a new terminal.
+                        Default: |v:true|
+
+                                                          *g:termcwd_bufnrs*
+g:termcwd_bufnrs        Dictionary storing terminal buffer numbers, keyed by
+                        "terminal_cwd". Managed automatically by the plugin.
+
+==============================================================================
+4. LUA API                                                      *termcwd-lua*
+
+For Neovim users, a Lua API is available. All functions return closures
+suitable for use in keymaps.
+
+                                                     *termcwd.lua.get()*
+require("termcwd").get([{terminal}[, {dir}]])
+                        Returns a function that toggles a terminal in the
+                        current window.
+>lua
+    vim.keymap.set("n", "<leader>t", require("termcwd").get())
+<
+                                                   *termcwd.lua.split()*
+require("termcwd").split([{terminal}[, {dir}]])
+                        Returns a function that toggles a terminal in a
+                        horizontal split. Also available as `.sp()`.
+>lua
+    vim.keymap.set("n", "<leader>ts", require("termcwd").split())
+<
+                                                     *termcwd.lua.tab()*
+require("termcwd").tab([{terminal}[, {dir}]])
+                        Returns a function that toggles a terminal in a
+                        new tab.
+>lua
+    vim.keymap.set("n", "<leader>tt", require("termcwd").tab())
+<
+==============================================================================
+5. CALLBACK                                                 *termcwd-callback*
+
+                                                           *TermcwdCallback()*
+TermcwdCallback()       Optional function you can define. Called immediately
+                        after a new terminal is created. Useful for setting
+                        buffer-local options.
+>vim
+    function! TermcwdCallback()
+        setlocal nonumber norelativenumber
+        setlocal signcolumn=no
+    endfunction
+<
+==============================================================================
+6. EXAMPLES                                                 *termcwd-examples*
+
+Basic Vimscript keymaps: ~
+>vim
+    " Toggle terminal in current window
+    nnoremap <leader>t <Cmd>call termcwd#get()<CR>
+
+    " Toggle terminal in split
+    nnoremap <leader>ts <Cmd>call termcwd#splitGet()<CR>
+
+    " Toggle terminal in tab
+    nnoremap <leader>tt <Cmd>call termcwd#tabGet()<CR>
+<
+Neovim Lua keymaps: ~
+>lua
+    local termcwd = require("termcwd")
+
+    vim.keymap.set("n", "<leader>t", termcwd.get())
+    vim.keymap.set("n", "<leader>ts", termcwd.split())
+    vim.keymap.set("n", "<leader>tt", termcwd.tab())
+<
+Named terminals: ~
+>vim
+    " Different terminals for different purposes
+    nnoremap <leader>tg <Cmd>call termcwd#splitGet("git")<CR>
+    nnoremap <leader>tr <Cmd>call termcwd#splitGet("repl")<CR>
+<
+Global terminal (accessible from any directory): ~
+>vim
+    " Empty CWD makes terminal accessible from anywhere
+    nnoremap <leader>tG <Cmd>call termcwd#get("global", "")<CR>
+<
+>lua
+    vim.keymap.set("n", "<leader>tG", require("termcwd").get("global", ""))
+<
+Configuration example: ~
+>vim
+    let g:termcwd_height = 15
+    let g:termcwd_split_full_bottom = v:true
+    let g:termcwd_insert = v:true
+<
+==============================================================================
+ vim:tw=78:ts=8:ft=help:norl:

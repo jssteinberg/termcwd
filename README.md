@@ -9,6 +9,8 @@ Do you sometimes browse your buffers for the (right) terminal? Termcwd provides 
 - Start in insert mode (Neovim only).
 - Toggle or not – terminal toggling and auto closing of windows with equal terminal buffer (can be turned off).
 
+It's only a thin layer of functions that keeps terminals as regular terminal buffers by using the default terminal command.
+
 ## Window-local CWD terminal
 
 Define your preferred mappings:
