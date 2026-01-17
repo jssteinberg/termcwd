@@ -11,6 +11,8 @@ Do you sometimes browse your buffers for the (right) terminal? Termcwd provides 
 
 It's only a thin layer of functions that keeps terminals as regular terminal buffers by using the default terminal command.
 
+See `:help termcwd` for full documentation.
+
 ## Window-local CWD terminal
 
 Define your preferred mappings:

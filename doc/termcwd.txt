@@ -26,17 +26,22 @@ Works with both Vim (8.1+) and Neovim.
 
 Getting started ~
 
-Add a keymap to toggle a terminal in a split:
+Add your preferred keymap to toggle a terminal in, e.g., a split:
 >vim
-    nnoremap <leader>t <Cmd>call termcwd#splitGet()<CR>
+    nnoremap <silent> <leader><cr> <cmd>call termcwd#splitGet()<cr>
 <
 Or in Neovim with Lua:
 >lua
-    vim.keymap.set("n", "<leader>t", require("termcwd").split())
+    vim.keymap.set(
+        "n",
+        "<leader><cr>",
+        require("termcwd").split(),
+        { desc = "Terminal (CWD)" }
+    )
 <
-Press `<leader>t` to open a terminal. Press it again to hide it. The terminal
-persists per working directory, so switching projects gives you a fresh
-terminal.
+Now press `<leader><cr>` to open a terminal. Press it again to hide it. The
+terminal persists per working directory, so switching projects gives you a
+fresh terminal.
 
 How it works ~
 
@@ -44,9 +49,17 @@ Terminals are stored and looked up using a key composed of:
 >
     terminal_name + "_" + cwd
 <
-This means you can have multiple named terminals per directory, or share a
-terminal across directories by using an empty CWD.
+This means you can have multiple named terminals per directory (e.g., "main",
+"secondary"), or use an empty CWD for a vim-instance global terminal (note
+that the terminal's actual path is the window CWD where it was first opened).
+(See COMMANDS for adding name and cwd).
 
+Terminal names are scoped to their CWD, so you can use the same name (e.g.,
+"main") for both a per-directory terminal and a global terminal without
+conflict:
+>vim
+    nnoremap <silent> <leader>1 <cmd>call termcwd#splitGet("global", "")<cr>
+<
 ==============================================================================
 2. COMMANDS                                                 *termcwd-commands*
 
