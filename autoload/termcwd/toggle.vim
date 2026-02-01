@@ -21,7 +21,7 @@ function! termcwd#toggle#split(args) abort
 			" - check if is open in another window, go to it
 			if l:term_winid
 				let l:isInTerm = win_gotoid(l:term_winid)
-				call termcwd#set#mode(l:isInTerm)
+				call termcwd#insert#determineStart(l:isInTerm)
 				return l:isInTerm
 			endif
 		catch | endtry

@@ -6,7 +6,7 @@
 " open terminal
 function! termcwd#get(...) abort
 	let s:set = #{ prev: bufnr(), split: 0, fromTab: 0 }
-	call termcwd#set#mode(s:GetTerm(a:000))
+	call termcwd#insert#determineStart(s:GetTerm(a:000))
 endfunction
 
 " open terminal in split
@@ -35,7 +35,7 @@ function! termcwd#splitGet(...) abort
 		exe "resize " . g:termcwd_height
 	endif
 
-	call termcwd#set#mode(l:focused)
+	call termcwd#insert#determineStart(l:focused)
 endfunction
 
 " open terminal in tab
@@ -43,7 +43,7 @@ function! termcwd#tabGet(...) abort
 	let s:set = #{ prev: bufnr(), split: 0, fromTab: tabpagenr() }
 
 	try | tabedit % | catch | endtry
-	call termcwd#set#mode(s:GetTerm(a:000))
+	call termcwd#insert#determineStart(s:GetTerm(a:000))
 endfunction
 
 " aliases
