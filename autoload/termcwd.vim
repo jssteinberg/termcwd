@@ -54,7 +54,7 @@ let termcwd#spGet = function("termcwd#splitGet")
 function! s:GetTerm(args, minimal = get(g:, "termcwd_minimal", v:false)) abort
 	let l:term = get(a:args, 0, "main")
 	let l:cwd = get(a:args, 1, getcwd(0))
-	let l:key = termcwd#get#key(l:term, l:cwd)
+	let l:key = termcwd#key#get(l:term, l:cwd)
 
 	try
 		" try if terminal exists
