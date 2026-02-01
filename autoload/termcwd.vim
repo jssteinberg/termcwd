@@ -6,10 +6,7 @@
 " open terminal
 function! termcwd#get(...) abort
 	let s:set = #{ prev: bufnr(), split: 0, fromTab: 0 }
-
-	if s:GetTerm(a:000) && has("nvim") && get(g:, "termcwd_insert", v:false)
-		startinsert
-	endif
+	call termcwd#set#mode(s:GetTerm(a:000))
 endfunction
 
 " open terminal in split
@@ -38,9 +35,7 @@ function! termcwd#splitGet(...) abort
 		exe "resize " . g:termcwd_height
 	endif
 
-	if has("nvim") && get(g:, "termcwd_insert", v:false) && l:focused
-		startinsert
-	endif
+	call termcwd#set#mode(l:focused)
 endfunction
 
 " open terminal in tab
@@ -48,10 +43,7 @@ function! termcwd#tabGet(...) abort
 	let s:set = #{ prev: bufnr(), split: 0, fromTab: tabpagenr() }
 
 	try | tabedit % | catch | endtry
-
-	if s:GetTerm(a:000) && has("nvim") && get(g:, "termcwd_insert", v:false)
-		startinsert
-	endif
+	call termcwd#set#mode(s:GetTerm(a:000))
 endfunction
 
 " aliases

@@ -20,7 +20,9 @@ function! termcwd#toggle#split(args) abort
 			let l:term_winid = bufwinid(g:termcwd_bufnrs[l:key])
 			" - check if is open in another window, go to it
 			if l:term_winid
-				return win_gotoid(l:term_winid)
+				let l:isInTerm = win_gotoid(l:term_winid)
+				call termcwd#set#mode(l:isInTerm)
+				return l:isInTerm
 			endif
 		catch | endtry
 
