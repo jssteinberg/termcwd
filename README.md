@@ -2,7 +2,7 @@
 
 *A tiny package/plugin for Neovim's and Vim's terminal to quickly toggle/focus the terminal for the current working directory (CWD), plus some customization.*
 
-Do you sometimes browse your buffers for the (right) terminal? Termcwd provides functions to toggle/focus your current terminal relative to the working directory:
+Do you often search in (n)vim for the (right) terminal buffer? Termcwd provides functions to toggle/focus your current terminal relative to the working directory:
 
 - Open in current window, split, or tab (and you can map them to different keymaps).
 	- Set static height of termcwd split window.
