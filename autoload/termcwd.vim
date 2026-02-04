@@ -6,10 +6,7 @@
 " open terminal
 function! termcwd#get(...) abort
 	let s:set = #{ prev: bufnr(), split: 0, fromTab: 0 }
-
-	if s:GetTerm(a:000) && has("nvim") && get(g:, "termcwd_insert", v:false)
-		startinsert
-	endif
+	call termcwd#insert#determineStart(s:GetTerm(a:000))
 endfunction
 
 " open terminal in split
@@ -38,9 +35,7 @@ function! termcwd#splitGet(...) abort
 		exe "resize " . g:termcwd_height
 	endif
 
-	if has("nvim") && get(g:, "termcwd_insert", v:false) && l:focused
-		startinsert
-	endif
+	call termcwd#insert#determineStart(l:focused)
 endfunction
 
 " open terminal in tab
@@ -48,10 +43,7 @@ function! termcwd#tabGet(...) abort
 	let s:set = #{ prev: bufnr(), split: 0, fromTab: tabpagenr() }
 
 	try | tabedit % | catch | endtry
-
-	if s:GetTerm(a:000) && has("nvim") && get(g:, "termcwd_insert", v:false)
-		startinsert
-	endif
+	call termcwd#insert#determineStart(s:GetTerm(a:000))
 endfunction
 
 " aliases
@@ -62,7 +54,7 @@ let termcwd#spGet = function("termcwd#splitGet")
 function! s:GetTerm(args, minimal = get(g:, "termcwd_minimal", v:false)) abort
 	let l:term = get(a:args, 0, "main")
 	let l:cwd = get(a:args, 1, getcwd(0))
-	let l:key = termcwd#get#key(l:term, l:cwd)
+	let l:key = termcwd#key#get(l:term, l:cwd)
 
 	try
 		" try if terminal exists
